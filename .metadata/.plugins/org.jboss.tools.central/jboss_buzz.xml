@@ -1,0 +1,2015 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/atom10full.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0">
+<title>JBoss Central</title>
+<generator uri="http://tt-rss.org/">Tiny Tiny RSS/1.9</generator>
+<updated>2017-11-30T15:30:46+00:00</updated>
+<id>http://tiny-man.rhcloud.com/public.php?op=rss&amp;id=1&amp;key=b0143615132bd9efc4e83ba42a5574f6ab939b28</id>
+
+
+<link href="http://tiny-man.rhcloud.com" rel="alternate" />
+
+<atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/atom+xml" href="http://feeds.feedburner.com/jbossbuzz" /><feedburner:info uri="jbossbuzz" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" /><entry>
+	<id>https://tools.jboss.org/blog/11.2.0.ga-for-oxygen.2.html</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/hzu19dEUKTA/11.2.0.ga-for-oxygen.2.html" rel="alternate" type="text/html" />
+	<title>JBoss Tools and Red Hat Developer Studio for Eclipse Oxygen.2</title>
+	<summary type="html"><![CDATA[
+      <div><div id="preamble">
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p><a href="https://tools.jboss.org/downloads/jbosstools/oxygen/4.5.2.Final.html">JBoss Tools 4.5.2</a> and <a href="https://tools.jboss.org/downloads/devstudio/oxygen/11.2.0.GA.html">Red Hat JBoss Developer Studio 11.2</a> for Eclipse Oxygen.2 are here waiting for you. Check it out!</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/blog/images/devstudio11.png" alt="devstudio11" />
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="installation"><a class="anchor" href="#installation"></a>Installation</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>JBoss Developer Studio comes with everything pre-bundled in its installer. Simply download it from our <a href="https://www.jboss.org/products/devstudio.html">JBoss Products page</a> and run it like this:</p>
+      </div>
+      <div class="literalblock">
+      <div class="content">
+      <pre>java -jar jboss-devstudio-&lt;installername&gt;.jar</pre>
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>JBoss Tools or Bring-Your-Own-Eclipse (BYOE) JBoss Developer Studio require a bit more:</p>
+      </div>
+      <div class="paragraph">
+      <p>This release requires at least Eclipse 4.7 (Oxygen) but we recommend
+      using the latest <a href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/oxygen2">Eclipse 4.7.2 Oxygen JEE Bundle</a> since then you get most of the dependencies preinstalled.</p>
+      </div>
+      <div class="paragraph">
+      <p>Once you have installed Eclipse, you can either find us on the Eclipse Marketplace under &quot;JBoss Tools&quot; or &quot;Red Hat JBoss Developer Studio&quot;.</p>
+      </div>
+      <div class="paragraph">
+      <p>For JBoss Tools, you can also use our update site directly.</p>
+      </div>
+      <div class="literalblock">
+      <div class="content">
+      <pre>http://download.jboss.org/jbosstools/oxygen/stable/updates/</pre>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="what-is-new"><a class="anchor" href="#what-is-new"></a>What is new?</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>Our main focus for this release was on adoption of Java9, improvements for container based development and bug fixing.
+      Eclipse Oxygen itself has <a href="https://www.youtube.com/playlist?list=PLy7t4z5SYNaTM66CahSlkMh5YkndYXMUq">a lot of new cool stuff</a> but let me highlight just a few updates in both Eclipse Oxygen and JBoss Tools plugins that I think are worth mentioning.</p>
+      </div>
+      <div class="sect2">
+      <h3 id="openshift-3"><a class="anchor" href="#openshift-3"></a>OpenShift 3</h3>
+      <div class="sect3">
+      <h4 id="spring-boot-applications-support-in-openshift-server-adapter"><a class="anchor" href="#spring-boot-applications-support-in-openshift-server-adapter"></a>Spring Boot applications support in OpenShift server adapter</h4>
+      <div class="paragraph">
+      <p>The OpenShift server adapter allowed hotdeploy and debugging for JEE and NodeJS based applications.
+      It now supports Spring Boot applications with some limitations: the Spring Boot devtools module must be added to your application as it monitors code changes and as the application must be launched in exploded mode, you must use the upstream image (docker.io/fabric8/s2i-java) rather than the downstream image builder fis-java-openshift.</p>
+      </div>
+      <div class="paragraph">
+      <p>As an example, we’ve provided an OpenShift template that will create an OpenShift application based on the upstream application and a Git repository that added the Spring Boot devtools to the Fabric8 Spring Boot quickstart.</p>
+      </div>
+      <div class="listingblock">
+      <div class="content">
+      <pre class="prettyprint highlight"><code class="language-json" data-lang="json">{
+        &quot;apiVersion&quot;: &quot;v1&quot;,
+        &quot;kind&quot;: &quot;Template&quot;,
+        &quot;metadata&quot;: {
+          &quot;annotations&quot;: {
+            &quot;description&quot;: &quot;Spring-Boot and CXF JAXRS QuickStart. This example demonstrates how you can use Apache CXF JAXRS with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a CXF JAXRS endpoint with Swagger enabled.&quot;,
+            &quot;tags&quot;: &quot;quickstart,java,springboot,fis&quot;,
+            &quot;iconClass&quot;: &quot;icon-jboss&quot;,
+            &quot;version&quot;: &quot;2.0&quot;
+          },
+          &quot;name&quot;: &quot;s2i-spring-boot-cxf-jaxrs&quot;
+        },
+        &quot;labels&quot;: {
+          &quot;template&quot;: &quot;s2i-spring-boot-cxf-jaxrs&quot;
+        },
+        &quot;parameters&quot;: [
+          {
+            &quot;name&quot;: &quot;APP_NAME&quot;,
+            &quot;displayName&quot;: &quot;Application Name&quot;,
+            &quot;required&quot;: true,
+            &quot;value&quot;: &quot;s2i-spring-boot-cxf-jaxrs&quot;,
+            &quot;description&quot;: &quot;The name assigned to the application.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;GIT_REPO&quot;,
+            &quot;displayName&quot;: &quot;Git Repository URL&quot;,
+            &quot;required&quot;: true,
+            &quot;value&quot;: &quot;https://github.com/jeffmaury/spring-boot-cxf-jaxrs.git&quot;,
+            &quot;description&quot;: &quot;The URL of the repository with your application source code.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;GIT_REF&quot;,
+            &quot;displayName&quot;: &quot;Git Reference&quot;,
+            &quot;value&quot;: &quot;hotdeploy&quot;,
+            &quot;description&quot;: &quot;Set this to a branch name, tag or other ref of your repository if you are not using the default branch.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;SERVICE_NAME&quot;,
+            &quot;displayName&quot;: &quot;Service Name&quot;,
+            &quot;value&quot;: &quot;cxf-jaxrs&quot;,
+            &quot;description&quot;: &quot;Exposed service name.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;BUILDER_VERSION&quot;,
+            &quot;displayName&quot;: &quot;Builder version&quot;,
+            &quot;value&quot;: &quot;2.0&quot;,
+            &quot;description&quot;: &quot;The version of the FIS S2I builder image to use.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;APP_VERSION&quot;,
+            &quot;displayName&quot;: &quot;Application Version&quot;,
+            &quot;value&quot;: &quot;1.0.0.redhat-000014&quot;,
+            &quot;description&quot;: &quot;The application version.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;MAVEN_ARGS&quot;,
+            &quot;displayName&quot;: &quot;Maven Arguments&quot;,
+            &quot;value&quot;: &quot;package -DskipTests -Dfabric8.skip -e -B&quot;,
+            &quot;description&quot;: &quot;Arguments passed to mvn in the build.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;MAVEN_ARGS_APPEND&quot;,
+            &quot;displayName&quot;: &quot;Extra Maven Arguments&quot;,
+            &quot;description&quot;: &quot;Extra arguments passed to mvn, e.g. for multi-module builds.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;ARTIFACT_DIR&quot;,
+            &quot;displayName&quot;: &quot;Maven build directory&quot;,
+            &quot;description&quot;: &quot;Directory of the artifact to be built, e.g. for multi-module builds.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;IMAGE_STREAM_NAMESPACE&quot;,
+            &quot;displayName&quot;: &quot;Image Stream Namespace&quot;,
+            &quot;value&quot;: &quot;openshift&quot;,
+            &quot;required&quot;: true,
+            &quot;description&quot;: &quot;Namespace in which the Fuse ImageStreams are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you&apos;ve installed the ImageStreams in a different namespace/project.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;BUILD_SECRET&quot;,
+            &quot;displayName&quot;: &quot;Git Build Secret&quot;,
+            &quot;generate&quot;: &quot;expression&quot;,
+            &quot;description&quot;: &quot;The secret needed to trigger a build.&quot;,
+            &quot;from&quot;: &quot;[a-zA-Z0-9]{40}&quot;
+          },
+          {
+            &quot;name&quot;: &quot;CPU_REQUEST&quot;,
+            &quot;displayName&quot;: &quot;CPU request&quot;,
+            &quot;value&quot;: &quot;0.2&quot;,
+            &quot;required&quot;: true,
+            &quot;description&quot;: &quot;The amount of CPU to requests.&quot;
+          },
+          {
+            &quot;name&quot;: &quot;CPU_LIMIT&quot;,
+            &quot;displayName&quot;: &quot;CPU limit&quot;,
+            &quot;value&quot;: &quot;1.0&quot;,
+            &quot;required&quot;: true,
+            &quot;description&quot;: &quot;The amount of CPU the container is limited to use.&quot;
+          }
+        ],
+        &quot;objects&quot;: [
+          {
+            &quot;apiVersion&quot;: &quot;v1&quot;,
+            &quot;kind&quot;: &quot;Route&quot;,
+            &quot;metadata&quot;: {
+              &quot;labels&quot;: {
+                &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                &quot;provider&quot;: &quot;s2i&quot;,
+                &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                &quot;version&quot;: &quot;${APP_VERSION}&quot;,
+                &quot;group&quot;: &quot;quickstarts&quot;
+              },
+              &quot;name&quot;: &quot;${SERVICE_NAME}-route&quot;
+            },
+            &quot;spec&quot;: {
+              &quot;to&quot;: {
+                &quot;kind&quot;: &quot;Service&quot;,
+                &quot;name&quot;: &quot;${SERVICE_NAME}&quot;
+              }
+            }
+          },
+          {
+            &quot;apiVersion&quot;: &quot;v1&quot;,
+            &quot;kind&quot;: &quot;Service&quot;,
+            &quot;metadata&quot;: {
+              &quot;annotations&quot;: {
+              },
+              &quot;labels&quot;: {
+                &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                &quot;provider&quot;: &quot;s2i&quot;,
+                &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                &quot;version&quot;: &quot;${APP_VERSION}&quot;,
+                &quot;group&quot;: &quot;quickstarts&quot;
+              },
+              &quot;name&quot;: &quot;${SERVICE_NAME}&quot;
+            },
+            &quot;spec&quot;: {
+              &quot;clusterIP&quot;: &quot;None&quot;,
+              &quot;deprecatedPublicIPs&quot;: [],
+              &quot;ports&quot;: [
+                {
+                  &quot;port&quot;: 9413,
+                  &quot;protocol&quot;: &quot;TCP&quot;,
+                  &quot;targetPort&quot;: 8080
+                }
+              ],
+              &quot;selector&quot;: {
+                &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                &quot;provider&quot;: &quot;s2i&quot;,
+                &quot;group&quot;: &quot;quickstarts&quot;
+              }
+            }
+          },
+          {
+            &quot;kind&quot;: &quot;ImageStream&quot;,
+            &quot;apiVersion&quot;: &quot;v1&quot;,
+            &quot;metadata&quot;: {
+              &quot;name&quot;: &quot;${APP_NAME}&quot;,
+              &quot;creationTimestamp&quot;: null,
+              &quot;labels&quot;: {
+                &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                &quot;group&quot;: &quot;quickstarts&quot;,
+                &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                &quot;provider&quot;: &quot;s2i&quot;,
+                &quot;version&quot;: &quot;${APP_VERSION}&quot;
+              }
+            },
+            &quot;spec&quot;: {},
+            &quot;status&quot;: {
+              &quot;dockerImageRepository&quot;: &quot;&quot;
+            }
+          },
+          {
+            &quot;kind&quot;: &quot;BuildConfig&quot;,
+            &quot;apiVersion&quot;: &quot;v1&quot;,
+            &quot;metadata&quot;: {
+              &quot;name&quot;: &quot;${APP_NAME}&quot;,
+              &quot;creationTimestamp&quot;: null,
+              &quot;labels&quot;: {
+                &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                &quot;group&quot;: &quot;quickstarts&quot;,
+                &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                &quot;provider&quot;: &quot;s2i&quot;,
+                &quot;version&quot;: &quot;${APP_VERSION}&quot;
+              }
+            },
+            &quot;spec&quot;: {
+              &quot;triggers&quot;: [
+                {
+                  &quot;type&quot;: &quot;GitHub&quot;,
+                  &quot;github&quot;: {
+                    &quot;secret&quot;: &quot;${BUILD_SECRET}&quot;
+                  }
+                },
+                {
+                  &quot;type&quot;: &quot;Generic&quot;,
+                  &quot;generic&quot;: {
+                    &quot;secret&quot;: &quot;${BUILD_SECRET}&quot;
+                  }
+                },
+                {
+                  &quot;type&quot;: &quot;ConfigChange&quot;
+                },
+                {
+                  &quot;type&quot;: &quot;ImageChange&quot;,
+                  &quot;imageChange&quot;: {}
+                }
+              ],
+              &quot;source&quot;: {
+                &quot;type&quot;: &quot;Git&quot;,
+                &quot;git&quot;: {
+                  &quot;uri&quot;: &quot;${GIT_REPO}&quot;,
+                  &quot;ref&quot;: &quot;${GIT_REF}&quot;
+                }
+              },
+              &quot;strategy&quot;: {
+                &quot;type&quot;: &quot;Source&quot;,
+                &quot;sourceStrategy&quot;: {
+                  &quot;from&quot;: {
+                    &quot;kind&quot;: &quot;DockerImage&quot;,
+                    &quot;name&quot;: &quot;fabric8/s2i-java:${BUILDER_VERSION}&quot;
+                  },
+                  &quot;forcePull&quot;: true,
+                  &quot;incremental&quot;: true,
+                  &quot;env&quot;: [
+                    {
+                      &quot;name&quot;: &quot;BUILD_LOGLEVEL&quot;,
+                      &quot;value&quot;: &quot;5&quot;
+                    },
+                    {
+                      &quot;name&quot;: &quot;ARTIFACT_DIR&quot;,
+                      &quot;value&quot;: &quot;${ARTIFACT_DIR}&quot;
+                    },
+                    {
+                      &quot;name&quot;: &quot;MAVEN_ARGS&quot;,
+                      &quot;value&quot;: &quot;${MAVEN_ARGS}&quot;
+                    },
+                    {
+                      &quot;name&quot;: &quot;MAVEN_ARGS_APPEND&quot;,
+                      &quot;value&quot;: &quot;${MAVEN_ARGS_APPEND}&quot;
+                    }
+                  ]
+                }
+              },
+              &quot;output&quot;: {
+                &quot;to&quot;: {
+                  &quot;kind&quot;: &quot;ImageStreamTag&quot;,
+                  &quot;name&quot;: &quot;${APP_NAME}:latest&quot;
+                }
+              },
+              &quot;resources&quot;: {}
+            },
+            &quot;status&quot;: {
+              &quot;lastVersion&quot;: 0
+            }
+          },
+          {
+            &quot;kind&quot;: &quot;DeploymentConfig&quot;,
+            &quot;apiVersion&quot;: &quot;v1&quot;,
+            &quot;metadata&quot;: {
+              &quot;name&quot;: &quot;${APP_NAME}&quot;,
+              &quot;creationTimestamp&quot;: null,
+              &quot;labels&quot;: {
+                &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                &quot;group&quot;: &quot;quickstarts&quot;,
+                &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                &quot;provider&quot;: &quot;s2i&quot;,
+                &quot;version&quot;: &quot;${APP_VERSION}&quot;
+              }
+            },
+            &quot;spec&quot;: {
+              &quot;strategy&quot;: {
+                &quot;resources&quot;: {}
+              },
+              &quot;triggers&quot;: [
+                {
+                  &quot;type&quot;: &quot;ConfigChange&quot;
+                },
+                {
+                  &quot;type&quot;: &quot;ImageChange&quot;,
+                  &quot;imageChangeParams&quot;: {
+                    &quot;automatic&quot;: true,
+                    &quot;containerNames&quot;: [
+                      &quot;${APP_NAME}&quot;
+                    ],
+                    &quot;from&quot;: {
+                      &quot;kind&quot;: &quot;ImageStreamTag&quot;,
+                      &quot;name&quot;: &quot;${APP_NAME}:latest&quot;
+                    }
+                  }
+                }
+              ],
+              &quot;replicas&quot;: 1,
+              &quot;selector&quot;: {
+                &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                &quot;deploymentconfig&quot;: &quot;${APP_NAME}&quot;,
+                &quot;group&quot;: &quot;quickstarts&quot;,
+                &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                &quot;provider&quot;: &quot;s2i&quot;,
+                &quot;version&quot;: &quot;${APP_VERSION}&quot;
+              },
+              &quot;template&quot;: {
+                &quot;metadata&quot;: {
+                  &quot;creationTimestamp&quot;: null,
+                  &quot;labels&quot;: {
+                    &quot;component&quot;: &quot;${APP_NAME}&quot;,
+                    &quot;deploymentconfig&quot;: &quot;${APP_NAME}&quot;,
+                    &quot;group&quot;: &quot;quickstarts&quot;,
+                    &quot;project&quot;: &quot;${APP_NAME}&quot;,
+                    &quot;provider&quot;: &quot;s2i&quot;,
+                    &quot;version&quot;: &quot;${APP_VERSION}&quot;
+                  }
+                },
+                &quot;spec&quot;: {
+                  &quot;containers&quot;: [
+                    {
+                      &quot;name&quot;: &quot;${APP_NAME}&quot;,
+                      &quot;image&quot;: &quot;library/${APP_NAME}:latest&quot;,
+                      &quot;readinessProbe&quot; : {
+                        &quot;httpGet&quot; : {
+                          &quot;path&quot; : &quot;/health&quot;,
+                          &quot;port&quot; : 8081
+                        },
+                        &quot;initialDelaySeconds&quot; : 10
+                      },
+                      &quot;livenessProbe&quot; : {
+                        &quot;httpGet&quot; : {
+                          &quot;path&quot; : &quot;/health&quot;,
+                          &quot;port&quot; : 8081
+                        },
+                        &quot;initialDelaySeconds&quot; : 180
+                      },
+                      &quot;ports&quot;: [
+                        {
+                          &quot;containerPort&quot;: 8778,
+                          &quot;name&quot;: &quot;jolokia&quot;
+                        }
+                      ],
+                      &quot;env&quot; : [ {
+                        &quot;name&quot; : &quot;KUBERNETES_NAMESPACE&quot;,
+                        &quot;valueFrom&quot; : {
+                          &quot;fieldRef&quot; : {
+                            &quot;fieldPath&quot; : &quot;metadata.namespace&quot;
+                          }
+                        }
+                      } ],
+                      &quot;resources&quot;: {
+                        &quot;requests&quot;: {
+                          &quot;cpu&quot;: &quot;${CPU_REQUEST}&quot;
+                        },
+                        &quot;limits&quot;: {
+                          &quot;cpu&quot;: &quot;${CPU_LIMIT}&quot;
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            &quot;status&quot;: {}
+          }
+        ]
+      }</code></pre>
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>You can see a demo of the OpenShift server adapter for Spring Boot application here:</p>
+      </div>
+      <div class="videoblock">
+      <div class="content">
+      <iframe width="640" height="400" src="//www.youtube.com/embed/M6q6tm1ztyU?rel=0" frameborder="0" allowfullscreen=""></iframe>
+      </div>
+      </div>
+      </div>
+      <div class="sect3">
+      <h4 id="support-for-route-timeouts-and-liveness-probe-for-openshift-server-adapter-debugging-configurations"><a class="anchor" href="#support-for-route-timeouts-and-liveness-probe-for-openshift-server-adapter-debugging-configurations"></a>Support for route timeouts and liveness probe for OpenShift Server Adapter debugging configurations</h4>
+      <div class="paragraph">
+      <p>While debugging your OpenShift deployment, you may face two different issues:</p>
+      </div>
+      <div class="ulist">
+      <ul>
+      <li>
+      <p>if you launch your test through a Web browser, then it’s likely that you will access your OpenShift deployment through an OpenShift
+      route. The problem is that, by default, OpenShift routes have a 30 seconds timeout for each request. So if you’re stepping through one
+      of your breakpoints, you will get a timeout error message in the browser window even if you can still debug your OpenShift deployment.
+      And you’re now stuck will the navigation of your OpenShift application.</p>
+      </li>
+      <li>
+      <p>if your OpenShift deployment has a liveness probe configured, depending on your virtual machine capabilities or how your debugger is
+      configured, if your stepping into one of your breakpoints, the liveness probe may fail thus OpenShift so OpenShift will restart your
+      container and your debugging session will be destroyed.</p>
+      </li>
+      </ul>
+      </div>
+      <div class="paragraph">
+      <p>So, from now, when the OpenShift server adapter is started in <code>debug</code> mode, the following action are being performed:</p>
+      </div>
+      <div class="ulist">
+      <ul>
+      <li>
+      <p>if an OpenShift route is found that is linked to the OpenShift deployment you want to debug, the route timeout will be
+      set or increased to 1 hour. The original or default value will be restored when the OpenShift server adapter will be restarted
+      in <code>run</code> mode.</p>
+      </li>
+      <li>
+      <p>if your OpenShift deployment has a liveness probe configured, the <code>initialDelay</code> field will be increased to 1 hour if the defined
+      value for this field is lower than 1 hour. If the value of this field is defined to a value greater than 1 hour, it is left intact.
+      The original value will be restored when the OpenShift server adapter will be restarted
+      in <code>run</code> mode</p>
+      </li>
+      </ul>
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="enhanced-command-to-delete-resource-s"><a class="anchor" href="#enhanced-command-to-delete-resource-s"></a>Enhanced command to delete resource(s)</h3>
+      <div class="paragraph">
+      <p>When it comes to delete OpenShift resources, you had two different choices:</p>
+      </div>
+      <div class="ulist">
+      <ul>
+      <li>
+      <p>individually delete each resource but as some resources are hidden by the OpenShift explorer, it may become troublesome</p>
+      </li>
+      <li>
+      <p>delete the containing OpenShift project but you are then deleting more resources than required</p>
+      </li>
+      </ul>
+      </div>
+      <div class="paragraph">
+      <p>There is now a new enhanced command to delete resources. It is available at the OpenShift project level and it will first
+      list all the available OpenShift resources for the selected OpenShift project. You can now select the ones you want to delete
+      and you can also filter the list using a filter that will be applied to the labels for each retrieved OpenShift resource.</p>
+      </div>
+      <div class="paragraph">
+      <p>So if you have two different deployments in a single OpenShift project (if you using OpenShift Online Starter for example) or if
+      you have different kind of resources in a single deployment, you can now distinct them.</p>
+      </div>
+      <div class="paragraph">
+      <p>Let’s see this in action:</p>
+      </div>
+      <div class="paragraph">
+      <p>In this example, I have deployed an EAP6.4 based application and an EAP7.0 based one. Here is what you  can see from the OpenShift explorer:</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-explorer.png" alt="new delete resources explorer" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Now, let’s invoke the new delete command on the <em>eap</em> OpenShift project: right click the OpenShift project and select <strong>Delete Resources…​</strong>:</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-dialog.png" alt="new delete resources dialog" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Let suppose that we want to delete the EAP6.4 deployement. Enter <em>eap=6.4</em> in the filter field:</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-dialog1.png" alt="new delete resources dialog1" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Push the <strong>Select All</strong> button:</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-dialog2.png" alt="new delete resources dialog2" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Close this dialog by pushing the <strong>OK</strong> button. The resources will be deleted and the OpenShift explorer will be updated accordingly:</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-explorer1.png" alt="new delete resources explorer1" />
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="server-tools"><a class="anchor" href="#server-tools"></a>Server tools</h3>
+      <div class="sect3">
+      <h4 id="eap-7-1-server-adapter"><a class="anchor" href="#eap-7-1-server-adapter"></a>EAP 7.1 Server Adapter</h4>
+      <div class="paragraph">
+      <p>A server adapter has been added to work with EAP 7.1 and Wildfly 11. It’s based on WildFly 11. This new server adapter includes support for incremental management
+      deployment like it’s upstream WildFly 11 counterpart.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="fuse-tooling"><a class="anchor" href="#fuse-tooling"></a>Fuse Tooling</h3>
+      <div class="sect3">
+      <h4 id="fuse-7-karaf-based-runtime-server-adapter"><a class="anchor" href="#fuse-7-karaf-based-runtime-server-adapter"></a>Fuse 7 Karaf-based runtime Server adapter</h4>
+      <div class="paragraph">
+      <p>Fuse 7 is cooking and preliminary versions are already available on <a href="http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf">early-access repository</a>. Fuse Tooling is ready to leverage them so that you can try the upcoming major Fuse version.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/Fuse7-ServerAdapter.png" alt="Fuse 7 Server Adapter" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Classical functionalities with server adapters are available: automatic redeploy, Java debug, Graphical Camel debug through created JMX connection.
+      Please note:
+      - you can’t retrieve the Fuse 7 Runtime yet directly from Fuse tooling, it is required to download it on your machine and point to it when creating the Server adapter.
+      - the provided templates requires some modifications to have them working with Fuse 7, mainly adapting the bom. Please see work related to it in this <a href="https://issues.jboss.org/browse/FUSETOOLS-2578">JIRA task</a> and its children.</p>
+      </div>
+      </div>
+      <div class="sect3">
+      <h4 id="display-routes-defined-inside-routecontext-in-camel-graphical-editor-design-tab"><a class="anchor" href="#display-routes-defined-inside-routecontext-in-camel-graphical-editor-design-tab"></a>Display routes defined inside &quot;routeContext&quot; in Camel Graphical Editor (Design tab)</h4>
+      <div class="paragraph">
+      <p>&quot;routeContext&quot; tag is a special tag used in Camel to provide the ability to reuse routes and to split them across different files. This is very useful on large projects. See Camel <a href="http://camel.apache.org/how-do-i-import-routes-from-other-xml-files.html">documentation</a> for more information.
+      Since this version, the Design of the routes defined in &quot;routeContext&quot; tags are now displayed.</p>
+      </div>
+      </div>
+      <div class="sect3">
+      <h4 id="usability-improvement-progress-bar-when-changing-the-camel-version"><a class="anchor" href="#usability-improvement-progress-bar-when-changing-the-camel-version"></a>Usability improvement: Progress bar when &quot;Changing the Camel version&quot;</h4>
+      <div class="paragraph">
+      <p>Since Fuse Tooling 10.1.0, it is possible to change the Camel version. In case the Camel version was not cached locally yet and for slow internet connections, this operation can take a while. There is now a progress bar to see the progress.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/switchCamelVersionWithProgressBar.png" alt="Switch Camel Version with Progress Bar" />
+      </div>
+      </div>
+      </div>
+      <div class="sect3">
+      <h4 id="support-for-creating-fuse-ignite-technical-extensions"><a class="anchor" href="#support-for-creating-fuse-ignite-technical-extensions"></a>Support for creating Fuse Ignite Technical Extensions</h4>
+      <div class="paragraph">
+      <p>We are happy to announce the addition of support for creating Technical Extension projects for <strong>Fuse Ignite</strong>*. That includes the creation of the project using the <em>&quot;New Fuse Ignite Extension Project&quot;</em> wizard as well as support for building the deployable artifact directly from inside the Eclipse environment.</p>
+      </div>
+      <div class="paragraph">
+      <p><em>*<strong>Fuse Ignite</strong> is a JBoss Fuse feature that provides a web interface for integrating applications. Without writing code, a business expert can use Ignite to connect to applications and optionally operate on data between connections to different applications. In Ignite, a data operation is referred to as a step in an integration.
+      Ignite provides steps for operations such as filtering and mapping data. To operate on data in ways that are not provided by Ignite built-in steps, you can develop an Ignite extension to define one or more custom steps.
+      Fuse Ignite comes as part of <a href="https://developers.redhat.com/products/fuse/overview/">Fuse</a> and <a href="https://www.redhat.com/en/explore/fuse-online">Fuse Online</a>. Please refer to the <a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html-single/tooling_user_guide/#IgniteExtension">online documentation</a> for more information on how to create and configure technical extensions for Fuse Ignite.</em></p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/igniteExtensionWizard.png" alt="Fuse Ignite Technical Extension Wizard" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>The provided project template allows you to define an <a href="http://camel.apache.org">Apache Camel</a> route as the base flow of your new technical extension.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/igniteExtensionRoute.png" alt="Fuse Ignite Technical Extension Route" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>To configure your new technical extension you can use the JSON file created with the new project.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/igniteExtensionConfig.png" alt="Fuse Ignite Technical Extension Configuration" />
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="forge-tools"><a class="anchor" href="#forge-tools"></a>Forge Tools</h3>
+      <div class="sect3">
+      <h4 id="forge-runtime-updated-to-3-8-1-final"><a class="anchor" href="#forge-runtime-updated-to-3-8-1-final"></a>Forge Runtime updated to 3.8.1.Final</h4>
+      <div class="paragraph">
+      <p>The included Forge runtime is now 3.8.1.Final. Read the official announcement <a href="http://forge.jboss.org/news/jboss-forge-3.8.1.final-is-here">here</a>.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="and-more"><a class="anchor" href="#and-more"></a>And more…​</h3>
+      <div class="paragraph">
+      <p>You can find more noteworthy updates in on <a href="https://tools.jboss.org/documentation/whatsnew/jbosstools/4.5.2.Final.html">this page</a>.</p>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="what-is-next"><a class="anchor" href="#what-is-next"></a>What is next?</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>Having JBoss Tools 4.5.2 and Developer Studio 11.2 out we are already working on the next maintenance release for Eclipse Oxygen.</p>
+      </div>
+      <div class="paragraph">
+      <p>Enjoy!</p>
+      </div>
+      <div class="paragraph">
+      <p>Jeff Maury</p>
+      </div>
+      </div>
+      </div></div>
+    ]]></summary>
+	<content type="html">&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;&lt;a href="https://tools.jboss.org/downloads/jbosstools/oxygen/4.5.2.Final.html" target="_blank"&gt;JBoss Tools 4.5.2&lt;/a&gt; and &lt;a href="https://tools.jboss.org/downloads/devstudio/oxygen/11.2.0.GA.html" target="_blank"&gt;Red Hat JBoss Developer Studio 11.2&lt;/a&gt; for Eclipse Oxygen.2 are here waiting for you. Check it out!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/blog/images/devstudio11.png" alt="devstudio11"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h2&gt;&lt;a href="#installation" target="_blank"&gt;&lt;/a&gt;Installation&lt;/h2&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;JBoss Developer Studio comes with everything pre-bundled in its installer. Simply download it from our &lt;a href="https://www.jboss.org/products/devstudio.html" target="_blank"&gt;JBoss Products page&lt;/a&gt; and run it like this:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;pre&gt;java -jar jboss-devstudio-&amp;lt;installername&amp;gt;.jar&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;JBoss Tools or Bring-Your-Own-Eclipse (BYOE) JBoss Developer Studio require a bit more:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;This release requires at least Eclipse 4.7 (Oxygen) but we recommend
+      using the latest &lt;a href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/oxygen2" target="_blank"&gt;Eclipse 4.7.2 Oxygen JEE Bundle&lt;/a&gt; since then you get most of the dependencies preinstalled.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Once you have installed Eclipse, you can either find us on the Eclipse Marketplace under "JBoss Tools" or "Red Hat JBoss Developer Studio".&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;For JBoss Tools, you can also use our update site directly.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;pre&gt;http://download.jboss.org/jbosstools/oxygen/stable/updates/&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h2&gt;&lt;a href="#what-is-new" target="_blank"&gt;&lt;/a&gt;What is new?&lt;/h2&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Our main focus for this release was on adoption of Java9, improvements for container based development and bug fixing.
+      Eclipse Oxygen itself has &lt;a href="https://www.youtube.com/playlist?list=PLy7t4z5SYNaTM66CahSlkMh5YkndYXMUq" target="_blank"&gt;a lot of new cool stuff&lt;/a&gt; but let me highlight just a few updates in both Eclipse Oxygen and JBoss Tools plugins that I think are worth mentioning.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#openshift-3" target="_blank"&gt;&lt;/a&gt;OpenShift 3&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#spring-boot-applications-support-in-openshift-server-adapter" target="_blank"&gt;&lt;/a&gt;Spring Boot applications support in OpenShift server adapter&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;The OpenShift server adapter allowed hotdeploy and debugging for JEE and NodeJS based applications.
+      It now supports Spring Boot applications with some limitations: the Spring Boot devtools module must be added to your application as it monitors code changes and as the application must be launched in exploded mode, you must use the upstream image (docker.io/fabric8/s2i-java) rather than the downstream image builder fis-java-openshift.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;As an example, we&amp;rsquo;ve provided an OpenShift template that will create an OpenShift application based on the upstream application and a Git repository that added the Spring Boot devtools to the Fabric8 Spring Boot quickstart.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;pre&gt;&lt;code data-lang="json"&gt;{
+        "apiVersion": "v1",
+        "kind": "Template",
+        "metadata": {
+          "annotations": {
+            "description": "Spring-Boot and CXF JAXRS QuickStart. This example demonstrates how you can use Apache CXF JAXRS with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a CXF JAXRS endpoint with Swagger enabled.",
+            "tags": "quickstart,java,springboot,fis",
+            "iconClass": "icon-jboss",
+            "version": "2.0"
+          },
+          "name": "s2i-spring-boot-cxf-jaxrs"
+        },
+        "labels": {
+          "template": "s2i-spring-boot-cxf-jaxrs"
+        },
+        "parameters": [
+          {
+            "name": "APP_NAME",
+            "displayName": "Application Name",
+            "required": true,
+            "value": "s2i-spring-boot-cxf-jaxrs",
+            "description": "The name assigned to the application."
+          },
+          {
+            "name": "GIT_REPO",
+            "displayName": "Git Repository URL",
+            "required": true,
+            "value": "https://github.com/jeffmaury/spring-boot-cxf-jaxrs.git",
+            "description": "The URL of the repository with your application source code."
+          },
+          {
+            "name": "GIT_REF",
+            "displayName": "Git Reference",
+            "value": "hotdeploy",
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+          },
+          {
+            "name": "SERVICE_NAME",
+            "displayName": "Service Name",
+            "value": "cxf-jaxrs",
+            "description": "Exposed service name."
+          },
+          {
+            "name": "BUILDER_VERSION",
+            "displayName": "Builder version",
+            "value": "2.0",
+            "description": "The version of the FIS S2I builder image to use."
+          },
+          {
+            "name": "APP_VERSION",
+            "displayName": "Application Version",
+            "value": "1.0.0.redhat-000014",
+            "description": "The application version."
+          },
+          {
+            "name": "MAVEN_ARGS",
+            "displayName": "Maven Arguments",
+            "value": "package -DskipTests -Dfabric8.skip -e -B",
+            "description": "Arguments passed to mvn in the build."
+          },
+          {
+            "name": "MAVEN_ARGS_APPEND",
+            "displayName": "Extra Maven Arguments",
+            "description": "Extra arguments passed to mvn, e.g. for multi-module builds."
+          },
+          {
+            "name": "ARTIFACT_DIR",
+            "displayName": "Maven build directory",
+            "description": "Directory of the artifact to be built, e.g. for multi-module builds."
+          },
+          {
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "displayName": "Image Stream Namespace",
+            "value": "openshift",
+            "required": true,
+            "description": "Namespace in which the Fuse ImageStreams are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project."
+          },
+          {
+            "name": "BUILD_SECRET",
+            "displayName": "Git Build Secret",
+            "generate": "expression",
+            "description": "The secret needed to trigger a build.",
+            "from": "[a-zA-Z0-9]{40}"
+          },
+          {
+            "name": "CPU_REQUEST",
+            "displayName": "CPU request",
+            "value": "0.2",
+            "required": true,
+            "description": "The amount of CPU to requests."
+          },
+          {
+            "name": "CPU_LIMIT",
+            "displayName": "CPU limit",
+            "value": "1.0",
+            "required": true,
+            "description": "The amount of CPU the container is limited to use."
+          }
+        ],
+        "objects": [
+          {
+            "apiVersion": "v1",
+            "kind": "Route",
+            "metadata": {
+              "labels": {
+                "component": "${APP_NAME}",
+                "provider": "s2i",
+                "project": "${APP_NAME}",
+                "version": "${APP_VERSION}",
+                "group": "quickstarts"
+              },
+              "name": "${SERVICE_NAME}-route"
+            },
+            "spec": {
+              "to": {
+                "kind": "Service",
+                "name": "${SERVICE_NAME}"
+              }
+            }
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+              "annotations": {
+              },
+              "labels": {
+                "component": "${APP_NAME}",
+                "provider": "s2i",
+                "project": "${APP_NAME}",
+                "version": "${APP_VERSION}",
+                "group": "quickstarts"
+              },
+              "name": "${SERVICE_NAME}"
+            },
+            "spec": {
+              "clusterIP": "None",
+              "deprecatedPublicIPs": [],
+              "ports": [
+                {
+                  "port": 9413,
+                  "protocol": "TCP",
+                  "targetPort": 8080
+                }
+              ],
+              "selector": {
+                "project": "${APP_NAME}",
+                "component": "${APP_NAME}",
+                "provider": "s2i",
+                "group": "quickstarts"
+              }
+            }
+          },
+          {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+              "name": "${APP_NAME}",
+              "creationTimestamp": null,
+              "labels": {
+                "component": "${APP_NAME}",
+                "group": "quickstarts",
+                "project": "${APP_NAME}",
+                "provider": "s2i",
+                "version": "${APP_VERSION}"
+              }
+            },
+            "spec": {},
+            "status": {
+              "dockerImageRepository": ""
+            }
+          },
+          {
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+              "name": "${APP_NAME}",
+              "creationTimestamp": null,
+              "labels": {
+                "component": "${APP_NAME}",
+                "group": "quickstarts",
+                "project": "${APP_NAME}",
+                "provider": "s2i",
+                "version": "${APP_VERSION}"
+              }
+            },
+            "spec": {
+              "triggers": [
+                {
+                  "type": "GitHub",
+                  "github": {
+                    "secret": "${BUILD_SECRET}"
+                  }
+                },
+                {
+                  "type": "Generic",
+                  "generic": {
+                    "secret": "${BUILD_SECRET}"
+                  }
+                },
+                {
+                  "type": "ConfigChange"
+                },
+                {
+                  "type": "ImageChange",
+                  "imageChange": {}
+                }
+              ],
+              "source": {
+                "type": "Git",
+                "git": {
+                  "uri": "${GIT_REPO}",
+                  "ref": "${GIT_REF}"
+                }
+              },
+              "strategy": {
+                "type": "Source",
+                "sourceStrategy": {
+                  "from": {
+                    "kind": "DockerImage",
+                    "name": "fabric8/s2i-java:${BUILDER_VERSION}"
+                  },
+                  "forcePull": true,
+                  "incremental": true,
+                  "env": [
+                    {
+                      "name": "BUILD_LOGLEVEL",
+                      "value": "5"
+                    },
+                    {
+                      "name": "ARTIFACT_DIR",
+                      "value": "${ARTIFACT_DIR}"
+                    },
+                    {
+                      "name": "MAVEN_ARGS",
+                      "value": "${MAVEN_ARGS}"
+                    },
+                    {
+                      "name": "MAVEN_ARGS_APPEND",
+                      "value": "${MAVEN_ARGS_APPEND}"
+                    }
+                  ]
+                }
+              },
+              "output": {
+                "to": {
+                  "kind": "ImageStreamTag",
+                  "name": "${APP_NAME}:latest"
+                }
+              },
+              "resources": {}
+            },
+            "status": {
+              "lastVersion": 0
+            }
+          },
+          {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+              "name": "${APP_NAME}",
+              "creationTimestamp": null,
+              "labels": {
+                "component": "${APP_NAME}",
+                "group": "quickstarts",
+                "project": "${APP_NAME}",
+                "provider": "s2i",
+                "version": "${APP_VERSION}"
+              }
+            },
+            "spec": {
+              "strategy": {
+                "resources": {}
+              },
+              "triggers": [
+                {
+                  "type": "ConfigChange"
+                },
+                {
+                  "type": "ImageChange",
+                  "imageChangeParams": {
+                    "automatic": true,
+                    "containerNames": [
+                      "${APP_NAME}"
+                    ],
+                    "from": {
+                      "kind": "ImageStreamTag",
+                      "name": "${APP_NAME}:latest"
+                    }
+                  }
+                }
+              ],
+              "replicas": 1,
+              "selector": {
+                "component": "${APP_NAME}",
+                "deploymentconfig": "${APP_NAME}",
+                "group": "quickstarts",
+                "project": "${APP_NAME}",
+                "provider": "s2i",
+                "version": "${APP_VERSION}"
+              },
+              "template": {
+                "metadata": {
+                  "creationTimestamp": null,
+                  "labels": {
+                    "component": "${APP_NAME}",
+                    "deploymentconfig": "${APP_NAME}",
+                    "group": "quickstarts",
+                    "project": "${APP_NAME}",
+                    "provider": "s2i",
+                    "version": "${APP_VERSION}"
+                  }
+                },
+                "spec": {
+                  "containers": [
+                    {
+                      "name": "${APP_NAME}",
+                      "image": "library/${APP_NAME}:latest",
+                      "readinessProbe" : {
+                        "httpGet" : {
+                          "path" : "/health",
+                          "port" : 8081
+                        },
+                        "initialDelaySeconds" : 10
+                      },
+                      "livenessProbe" : {
+                        "httpGet" : {
+                          "path" : "/health",
+                          "port" : 8081
+                        },
+                        "initialDelaySeconds" : 180
+                      },
+                      "ports": [
+                        {
+                          "containerPort": 8778,
+                          "name": "jolokia"
+                        }
+                      ],
+                      "env" : [ {
+                        "name" : "KUBERNETES_NAMESPACE",
+                        "valueFrom" : {
+                          "fieldRef" : {
+                            "fieldPath" : "metadata.namespace"
+                          }
+                        }
+                      } ],
+                      "resources": {
+                        "requests": {
+                          "cpu": "${CPU_REQUEST}"
+                        },
+                        "limits": {
+                          "cpu": "${CPU_LIMIT}"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "status": {}
+          }
+        ]
+      }&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;You can see a demo of the OpenShift server adapter for Spring Boot application here:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#support-for-route-timeouts-and-liveness-probe-for-openshift-server-adapter-debugging-configurations" target="_blank"&gt;&lt;/a&gt;Support for route timeouts and liveness probe for OpenShift Server Adapter debugging configurations&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;While debugging your OpenShift deployment, you may face two different issues:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;ul&gt;&lt;li&gt;
+      &lt;p&gt;if you launch your test through a Web browser, then it&amp;rsquo;s likely that you will access your OpenShift deployment through an OpenShift
+      route. The problem is that, by default, OpenShift routes have a 30 seconds timeout for each request. So if you&amp;rsquo;re stepping through one
+      of your breakpoints, you will get a timeout error message in the browser window even if you can still debug your OpenShift deployment.
+      And you&amp;rsquo;re now stuck will the navigation of your OpenShift application.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;if your OpenShift deployment has a liveness probe configured, depending on your virtual machine capabilities or how your debugger is
+      configured, if your stepping into one of your breakpoints, the liveness probe may fail thus OpenShift so OpenShift will restart your
+      container and your debugging session will be destroyed.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;&lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;So, from now, when the OpenShift server adapter is started in &lt;code&gt;debug&lt;/code&gt; mode, the following action are being performed:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;ul&gt;&lt;li&gt;
+      &lt;p&gt;if an OpenShift route is found that is linked to the OpenShift deployment you want to debug, the route timeout will be
+      set or increased to 1 hour. The original or default value will be restored when the OpenShift server adapter will be restarted
+      in &lt;code&gt;run&lt;/code&gt; mode.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;if your OpenShift deployment has a liveness probe configured, the &lt;code&gt;initialDelay&lt;/code&gt; field will be increased to 1 hour if the defined
+      value for this field is lower than 1 hour. If the value of this field is defined to a value greater than 1 hour, it is left intact.
+      The original value will be restored when the OpenShift server adapter will be restarted
+      in &lt;code&gt;run&lt;/code&gt; mode&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#enhanced-command-to-delete-resource-s" target="_blank"&gt;&lt;/a&gt;Enhanced command to delete resource(s)&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;When it comes to delete OpenShift resources, you had two different choices:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;ul&gt;&lt;li&gt;
+      &lt;p&gt;individually delete each resource but as some resources are hidden by the OpenShift explorer, it may become troublesome&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;delete the containing OpenShift project but you are then deleting more resources than required&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;&lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;There is now a new enhanced command to delete resources. It is available at the OpenShift project level and it will first
+      list all the available OpenShift resources for the selected OpenShift project. You can now select the ones you want to delete
+      and you can also filter the list using a filter that will be applied to the labels for each retrieved OpenShift resource.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;So if you have two different deployments in a single OpenShift project (if you using OpenShift Online Starter for example) or if
+      you have different kind of resources in a single deployment, you can now distinct them.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Let&amp;rsquo;s see this in action:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;In this example, I have deployed an EAP6.4 based application and an EAP7.0 based one. Here is what you  can see from the OpenShift explorer:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-explorer.png" alt="new delete resources explorer"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Now, let&amp;rsquo;s invoke the new delete command on the &lt;em&gt;eap&lt;/em&gt; OpenShift project: right click the OpenShift project and select &lt;strong&gt;Delete Resources&amp;hellip;&amp;#8203;&lt;/strong&gt;:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-dialog.png" alt="new delete resources dialog"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Let suppose that we want to delete the EAP6.4 deployement. Enter &lt;em&gt;eap=6.4&lt;/em&gt; in the filter field:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-dialog1.png" alt="new delete resources dialog1"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Push the &lt;strong&gt;Select All&lt;/strong&gt; button:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-dialog2.png" alt="new delete resources dialog2"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Close this dialog by pushing the &lt;strong&gt;OK&lt;/strong&gt; button. The resources will be deleted and the OpenShift explorer will be updated accordingly:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/openshift/images/new-delete-resources-explorer1.png" alt="new delete resources explorer1"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#server-tools" target="_blank"&gt;&lt;/a&gt;Server tools&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#eap-7-1-server-adapter" target="_blank"&gt;&lt;/a&gt;EAP 7.1 Server Adapter&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;A server adapter has been added to work with EAP 7.1 and Wildfly 11. It&amp;rsquo;s based on WildFly 11. This new server adapter includes support for incremental management
+      deployment like it&amp;rsquo;s upstream WildFly 11 counterpart.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#fuse-tooling" target="_blank"&gt;&lt;/a&gt;Fuse Tooling&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#fuse-7-karaf-based-runtime-server-adapter" target="_blank"&gt;&lt;/a&gt;Fuse 7 Karaf-based runtime Server adapter&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;Fuse 7 is cooking and preliminary versions are already available on &lt;a href="http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf" target="_blank"&gt;early-access repository&lt;/a&gt;. Fuse Tooling is ready to leverage them so that you can try the upcoming major Fuse version.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/Fuse7-ServerAdapter.png" alt="Fuse 7 Server Adapter"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Classical functionalities with server adapters are available: automatic redeploy, Java debug, Graphical Camel debug through created JMX connection.
+      Please note:
+      - you can&amp;rsquo;t retrieve the Fuse 7 Runtime yet directly from Fuse tooling, it is required to download it on your machine and point to it when creating the Server adapter.
+      - the provided templates requires some modifications to have them working with Fuse 7, mainly adapting the bom. Please see work related to it in this &lt;a href="https://issues.jboss.org/browse/FUSETOOLS-2578" target="_blank"&gt;JIRA task&lt;/a&gt; and its children.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#display-routes-defined-inside-routecontext-in-camel-graphical-editor-design-tab" target="_blank"&gt;&lt;/a&gt;Display routes defined inside "routeContext" in Camel Graphical Editor (Design tab)&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;"routeContext" tag is a special tag used in Camel to provide the ability to reuse routes and to split them across different files. This is very useful on large projects. See Camel &lt;a href="http://camel.apache.org/how-do-i-import-routes-from-other-xml-files.html" target="_blank"&gt;documentation&lt;/a&gt; for more information.
+      Since this version, the Design of the routes defined in "routeContext" tags are now displayed.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#usability-improvement-progress-bar-when-changing-the-camel-version" target="_blank"&gt;&lt;/a&gt;Usability improvement: Progress bar when "Changing the Camel version"&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;Since Fuse Tooling 10.1.0, it is possible to change the Camel version. In case the Camel version was not cached locally yet and for slow internet connections, this operation can take a while. There is now a progress bar to see the progress.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/switchCamelVersionWithProgressBar.png" alt="Switch Camel Version with Progress Bar"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#support-for-creating-fuse-ignite-technical-extensions" target="_blank"&gt;&lt;/a&gt;Support for creating Fuse Ignite Technical Extensions&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;We are happy to announce the addition of support for creating Technical Extension projects for &lt;strong&gt;Fuse Ignite&lt;/strong&gt;*. That includes the creation of the project using the &lt;em&gt;"New Fuse Ignite Extension Project"&lt;/em&gt; wizard as well as support for building the deployable artifact directly from inside the Eclipse environment.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;&lt;em&gt;*&lt;strong&gt;Fuse Ignite&lt;/strong&gt; is a JBoss Fuse feature that provides a web interface for integrating applications. Without writing code, a business expert can use Ignite to connect to applications and optionally operate on data between connections to different applications. In Ignite, a data operation is referred to as a step in an integration.
+      Ignite provides steps for operations such as filtering and mapping data. To operate on data in ways that are not provided by Ignite built-in steps, you can develop an Ignite extension to define one or more custom steps.
+      Fuse Ignite comes as part of &lt;a href="https://developers.redhat.com/products/fuse/overview/" target="_blank"&gt;Fuse&lt;/a&gt; and &lt;a href="https://www.redhat.com/en/explore/fuse-online" target="_blank"&gt;Fuse Online&lt;/a&gt;. Please refer to the &lt;a href="https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html-single/tooling_user_guide/#IgniteExtension" target="_blank"&gt;online documentation&lt;/a&gt; for more information on how to create and configure technical extensions for Fuse Ignite.&lt;/em&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/igniteExtensionWizard.png" alt="Fuse Ignite Technical Extension Wizard"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;The provided project template allows you to define an &lt;a href="http://camel.apache.org" target="_blank"&gt;Apache Camel&lt;/a&gt; route as the base flow of your new technical extension.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/igniteExtensionRoute.png" alt="Fuse Ignite Technical Extension Route"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;To configure your new technical extension you can use the JSON file created with the new project.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/igniteExtensionConfig.png" alt="Fuse Ignite Technical Extension Configuration"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#forge-tools" target="_blank"&gt;&lt;/a&gt;Forge Tools&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#forge-runtime-updated-to-3-8-1-final" target="_blank"&gt;&lt;/a&gt;Forge Runtime updated to 3.8.1.Final&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;The included Forge runtime is now 3.8.1.Final. Read the official announcement &lt;a href="http://forge.jboss.org/news/jboss-forge-3.8.1.final-is-here" target="_blank"&gt;here&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#and-more" target="_blank"&gt;&lt;/a&gt;And more&amp;hellip;&amp;#8203;&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;You can find more noteworthy updates in on &lt;a href="https://tools.jboss.org/documentation/whatsnew/jbosstools/4.5.2.Final.html" target="_blank"&gt;this page&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h2&gt;&lt;a href="#what-is-next" target="_blank"&gt;&lt;/a&gt;What is next?&lt;/h2&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Having JBoss Tools 4.5.2 and Developer Studio 11.2 out we are already working on the next maintenance release for Eclipse Oxygen.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Enjoy!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Jeff Maury&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/hzu19dEUKTA" height="1" width="1" alt=""/&gt;</content>
+	<updated>2018-01-29T07:07:14+00:00</updated>
+	<author><name>jeffmaury</name></author>
+	<source>
+		<link rel="self" href="http://tools.jboss.org/blog/" />
+		<title>JBoss Tools</title></source>
+
+	<category term="release" />
+
+	<category term="jbosstools" />
+
+	<category term="devstudio" />
+
+	<category term="jbosscentral" />
+
+
+<feedburner:origLink>https://tools.jboss.org/blog/11.2.0.ga-for-oxygen.2.html</feedburner:origLink></entry>
+
+<entry>
+	<id>https://developer.jboss.org/blogs/weekly-editorial/2018/01/25/this-week-in-jboss-25th-january-2018</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/imUaNFS8ElU/this-week-in-jboss-25th-january-2018" rel="alternate" type="text/html" />
+	<title>This week in JBoss: (25th January 2018)</title>
+	<summary type="html"><![CDATA[<!-- [DocumentBodyStart:30a6ee03-4f44-467a-a209-557b02c5d02b] --><div class="jive-rendered-content"><p>Welcome to the weekly roundup from the JBoss Community. Read on for an overview of the week's news and releases.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><table border="0px" class="jiveBorder mce-item-table" jive-data-cell="{&quot;color&quot;:&quot;#3D3D3D&quot;,&quot;textAlign&quot;:&quot;left&quot;,&quot;padding&quot;:&quot;6&quot;,&quot;backgroundColor&quot;:&quot;transparent&quot;,&quot;fontFamily&quot;:&quot;Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif&quot;,&quot;verticalAlign&quot;:&quot;baseline&quot;}" jive-data-header="{&quot;color&quot;:&quot;#505050&quot;,&quot;backgroundColor&quot;:&quot;#F2F2F2&quot;,&quot;textAlign&quot;:&quot;left&quot;,&quot;padding&quot;:&quot;6&quot;}" style="border: 0px solid #c6c6c6; width: 100%;"><tbody><tr><td style="border:0pxpx solid black;border: 0px solid #c6c6c6;padding: 6px;"><h2>JUnit 5 support lands in Eclipse Vert.x for testing asynchronous operations</h2><p>Eclipse Vert.x now has support for JUnit 5. Read <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2018/01/23/vertx-junit5-async-testing/" rel="nofollow">this post</a> to find out the details.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Infinispan coming to Snowcamp 2018</h2><p>This week <a class="jive-link-external-small" href="http://planet.jboss.org/post/infinispan_coming_to_snowcamp_2018" rel="nofollow">Katia Aresti will be presenting at Snowcamp in Grenoble</a>. Here she will be talking about <a class="jive-link-external-small" href="http://infinispan.org/docs/dev/user_guide/user_guide.html#clustered_lock" rel="nofollow">Clustered Locks</a> in Infinispan.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>AppDev in the Cloud - Data Virtualization Solves Acquisition Use Case</h2><p>In <a class="jive-link-external-small" href="http://planet.jboss.org/post/appdev_in_the_cloud_data_virtualization_solves_acquisition_use_case" rel="nofollow">this post</a> Eric Schabell presents an example showing how data virtualization can be used to smooth the transition period when merging two systems together.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Do you use Infinispan's Replication Queue?</h2><p>If you are a user of Infinispan's Replication queue, you should read<a class="jive-link-external-small" href="http://planet.jboss.org/post/what_happened_to_the_replication_queue" rel="nofollow"> this post</a>. The Replication queue was deprecated in Infinispan 8.2 and removed in Infinispan 9.0. The post details the recommended migration path.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Hibernate Community Newsletter</h2><p>Read <a class="jive-link-external-small" href="http://planet.jboss.org/post/hibernate_community_newsletter_02_2018" rel="nofollow">this post</a> to catch up on the latest news from the Hibernate community.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Camel in Action, Second Edition is Complete!</h2><p>Claus Ibsen and&#160; Jonathan Anstey have now completed the second edition of their <em>Camel in Action</em> book. It is now in print and will be released soon. Read <a class="jive-link-external-small" href="http://planet.jboss.org/post/camel_in_action_second_edition_is_complete" rel="nofollow">this post </a>to find out about the changes in this edition.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>New Releases</h2><ul><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/hibernate_search_5_9_0_cr1_was_just_released" rel="nofollow">Hibernate Search 5.9.0.CR1</a>. This is the last opportunity for the community to test it and report bugs before the 5.9.0 GA release.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/immutant_2_1_10_release" rel="nofollow">Immutant 2.1.10</a>. This release prevents the TLS error you get when fetching dependencies using recent versions of Leiningen.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/first_candidate_release_for_infinispan_9_2_0_is_out" rel="nofollow">Infinispan 9.2.0.CR1</a>.</li></ul></td><td style="border:0pxpx solid black;border: 0px solid #c6c6c6;padding: 6px;"><p><a href="https://developer.jboss.org/servlet/JiveServlet/showImage/38-6158-168996/alpes-snow-full-illustration.png"><img alt="" class="image-1 jive-image" height="180" src="https://developer.jboss.org/servlet/JiveServlet/downloadImage/38-6158-168996/180-180/alpes-snow-full-illustration.png" style="width: 180px; height: 180px;" width="180"/></a></p><p><a href="https://developer.jboss.org/servlet/JiveServlet/showImage/38-6158-168997/Ibsen-Camel-2ED-7+%281%29.jpg"><img alt="" class="image-2 jive-image" height="218" src="https://developer.jboss.org/servlet/JiveServlet/downloadImage/38-6158-168997/169-218/Ibsen-Camel-2ED-7+%281%29.jpg" style=" width: 168.739px;" width="169"/></a></p></td></tr></tbody></table><h2></h2></div><!-- [DocumentBodyEnd:30a6ee03-4f44-467a-a209-557b02c5d02b] -->]]></summary>
+	<content type="html">&lt;html&gt;&lt;!-- [DocumentBodyStart:30a6ee03-4f44-467a-a209-557b02c5d02b] --&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;Welcome to the weekly roundup from the JBoss Community. Read on for an overview of the week's news and releases.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;table border="0px" jive-data-cell='{"color":"#3D3D3D","textAlign":"left","padding":"6","backgroundColor":"transparent","fontFamily":"Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif","verticalAlign":"baseline"}' jive-data-header='{"color":"#505050","backgroundColor":"#F2F2F2","textAlign":"left","padding":"6"}'&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;h2&gt;JUnit 5 support lands in Eclipse Vert.x for testing asynchronous operations&lt;/h2&gt;&lt;p&gt;Eclipse Vert.x now has support for JUnit 5. Read &lt;a href="https://developers.redhat.com/blog/2018/01/23/vertx-junit5-async-testing/" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; to find out the details.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Infinispan coming to Snowcamp 2018&lt;/h2&gt;&lt;p&gt;This week &lt;a href="http://planet.jboss.org/post/infinispan_coming_to_snowcamp_2018" rel="nofollow" target="_blank"&gt;Katia Aresti will be presenting at Snowcamp in Grenoble&lt;/a&gt;. Here she will be talking about &lt;a href="http://infinispan.org/docs/dev/user_guide/user_guide.html#clustered_lock" rel="nofollow" target="_blank"&gt;Clustered Locks&lt;/a&gt; in Infinispan.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;AppDev in the Cloud - Data Virtualization Solves Acquisition Use Case&lt;/h2&gt;&lt;p&gt;In &lt;a href="http://planet.jboss.org/post/appdev_in_the_cloud_data_virtualization_solves_acquisition_use_case" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; Eric Schabell presents an example showing how data virtualization can be used to smooth the transition period when merging two systems together.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Do you use Infinispan's Replication Queue?&lt;/h2&gt;&lt;p&gt;If you are a user of Infinispan's Replication queue, you should read&lt;a href="http://planet.jboss.org/post/what_happened_to_the_replication_queue" rel="nofollow" target="_blank"&gt; this post&lt;/a&gt;. The Replication queue was deprecated in Infinispan 8.2 and removed in Infinispan 9.0. The post details the recommended migration path.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Hibernate Community Newsletter&lt;/h2&gt;&lt;p&gt;Read &lt;a href="http://planet.jboss.org/post/hibernate_community_newsletter_02_2018" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; to catch up on the latest news from the Hibernate community.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Camel in Action, Second Edition is Complete!&lt;/h2&gt;&lt;p&gt;Claus Ibsen and&amp;nbsp; Jonathan Anstey have now completed the second edition of their &lt;em&gt;Camel in Action&lt;/em&gt; book. It is now in print and will be released soon. Read &lt;a href="http://planet.jboss.org/post/camel_in_action_second_edition_is_complete" rel="nofollow" target="_blank"&gt;this post &lt;/a&gt;to find out about the changes in this edition.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;New Releases&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/hibernate_search_5_9_0_cr1_was_just_released" rel="nofollow" target="_blank"&gt;Hibernate Search 5.9.0.CR1&lt;/a&gt;. This is the last opportunity for the community to test it and report bugs before the 5.9.0 GA release.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/immutant_2_1_10_release" rel="nofollow" target="_blank"&gt;Immutant 2.1.10&lt;/a&gt;. This release prevents the TLS error you get when fetching dependencies using recent versions of Leiningen.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/first_candidate_release_for_infinispan_9_2_0_is_out" rel="nofollow" target="_blank"&gt;Infinispan 9.2.0.CR1&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;a href="https://developer.jboss.org/servlet/JiveServlet/showImage/38-6158-168996/alpes-snow-full-illustration.png" target="_blank"&gt;&lt;img alt="" height="180" src="https://developer.jboss.org/servlet/JiveServlet/downloadImage/38-6158-168996/180-180/alpes-snow-full-illustration.png" width="180"&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;a href="https://developer.jboss.org/servlet/JiveServlet/showImage/38-6158-168997/Ibsen-Camel-2ED-7+%281%29.jpg" target="_blank"&gt;&lt;img alt="" height="218" src="https://developer.jboss.org/servlet/JiveServlet/downloadImage/38-6158-168997/169-218/Ibsen-Camel-2ED-7+%281%29.jpg" width="169"&gt;&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;h2&gt;&lt;/h2&gt;&lt;/div&gt;&lt;!-- [DocumentBodyEnd:30a6ee03-4f44-467a-a209-557b02c5d02b] --&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/imUaNFS8ElU" height="1" width="1" alt=""/&gt;</content>
+	<updated>2018-01-25T11:22:30+00:00</updated>
+	<author><name>Paul Robinson</name></author>
+	<source>
+		<link rel="self" href="http://community.jboss.org/blogs/weekly-editorial/feeds/" />
+		<title>Weekly Editorial</title></source>
+
+	<category term="hibernate" />
+
+	<category term="junit" />
+
+	<category term="infinispan" />
+
+	<category term="camel" />
+
+	<category term="immutant" />
+
+	<category term="vertx" />
+
+	<category term="data virtualization" />
+
+	<category term="snowcamp" />
+
+
+<feedburner:origLink>https://developer.jboss.org/blogs/weekly-editorial/2018/01/25/this-week-in-jboss-25th-january-2018</feedburner:origLink></entry>
+
+<entry>
+	<id>https://developer.jboss.org/blogs/weekly-editorial/2018/01/18/this-week-in-jboss-18th-january-2018-java-ee-naming</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/S6Mh53kxTQg/this-week-in-jboss-18th-january-2018-java-ee-naming" rel="alternate" type="text/html" />
+	<title>This week in JBoss: (18th January 2018): Java EE Naming</title>
+	<summary type="html"><![CDATA[<!-- [DocumentBodyStart:a9cf455b-0b13-4761-ab4d-69edacc9824b] --><div class="jive-rendered-content"><p>Welcome to our next edition of the JBoss Weekly Editorial where we take another journey through the JBoss Communities in search of interesting articles, I hope you all enjoy the ride.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Java EE Naming and Packaging</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>The Java EE Guardians recently wrote an open letter regarding Java EE Naming and Packaging, provoking a long discussion on the EE4J mailing list and a response from Oracle.&#160; <a class="jive-link-blog-small" data-containerId="1427" data-containerType="37" data-objectId="6156" data-objectType="38" href="https://developer.jboss.org/blogs/mark.little/2018/01/18/java-ee-naming-and-package-discussions">If you want to understand the key points of the discussion then check out Mark Little's post on the subject</a>, otherwise for more information take a look through the responses on the <a class="jive-link-external-small" href="http://dev.eclipse.org/mhonarc/lists/ee4j-community/" rel="nofollow">EE4J mailing list</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Transaction Recovery with Narayana</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>One of the most important and likely least understood aspects of any application is the role played by XA transactions in ensuring consistent modification of resources, not only when things go smoothly during the 2 Phase Commit but also when things go wrong and recovery is needed.&#160; To help explain what is taking place Ondra has written a couple of articles which will be of interest, the first explaining <a class="jive-link-external-small" href="http://jbossts.blogspot.ca/2018/01/narayana-periodic-recovery-of-xa.html" rel="nofollow">what is meant by transaction recovery and explaining the way in which recovery occurs</a> with the second covering <a class="jive-link-external-small" href="http://jbossts.blogspot.ca/2018/01/recovery-of-narayana-jdbc-transactional.html" rel="nofollow">how recovery impacts the Narayana JDBC transactional driver</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Continuing the Path to Cloud Happiness</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p><a class="jive-link-external-small" href="http://www.schabell.org/2018/01/10-steps-to-cloud-happiness-step-9.html" rel="nofollow">In the next step along his path to Cloud Happiness Eric introduces us to some examples from the Financial Service space</a>.&#160; Eric's first example is a mortgage application, followed by a loan application, then a customer evaluation application and ends with a customer on-boarding application.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>SSO Across Data Centers.</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>Following on from an earlier post describing how to set up Keycloak in a bare metal Cross Data Center configuration Hynek has updated the example to demonstrate how the same can be achieved when deploying in Amazon Web Services environment.&#160; <a class="jive-link-external-small" href="http://blog.keycloak.org/2018/01/keycloak-cross-data-center-setup-in-aws.html" rel="nofollow">Hynek covers not only the general architecture of the setup but also provides launch stacks to allow you to replicate the setup within your own AWS account</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Performance of Dynamic Method Access</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>When developing a framework it is often necessary for the framework to access methods within classes they are unaware of, if the framework is invoking these many times then performance is critical.&#160; OptaPlanner has a need for this feature so <a class="jive-link-external-small" href="https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html" rel="nofollow">Geoffrey spent time evaluating the options, leading to some very interesting results and discussions in the comments</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Infinispan 9.2 Improved collect()</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>Infinispan includes support for distributed java streams and, while this feature was simple and concise for distributing the lambda functions across the cluster it was not as clean if the responses being collected included non Serializable results such as those created with the Java Collectors helper class.&#160; <a class="jive-link-external-small" href="http://blog.infinispan.org/2018/01/improving-collect-for-distributed-java.html" rel="nofollow">With the release of Infinispan 9.2 the usability of this feature has been improved through the introduction of a new, overloaded method in the CacheStream class</a>, allowing you to improve on the conciseness of your code.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Hibernate News</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>The latest version of <a class="jive-link-external-small" href="http://in.relation.to/2018/01/08/hibernate-community-newsletter-2018-01/" rel="nofollow">Hibernate News</a> is out bringing new articles from the Hibernate Community.&#160; Within this edition of the newsletter are articles discussing Integration Tests with Maven, joining JPA Entities with a Mapped Relationship, Inheritance in JPA, introductions to Hibernate Spatial and Hibernate Search and many more.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>New Releases</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><ul><li>The <a class="jive-link-external-small" href="http://arquillian.org/" rel="nofollow">Arquillian</a> team have announced the release of<ul><li><a class="jive-link-external-small" href="http://arquillian.org/blog/2018/01/04/arquillian-cube-1-12-0/" rel="nofollow">Arquillian Cube Extension 1.12.0</a> and <a class="jive-link-external-small" href="http://arquillian.org/blog/2018/01/18/arquillian-cube-1-13-0/" rel="nofollow">Arquillian Cube Extension 1.13.0</a></li><li><a class="jive-link-external-small" href="http://arquillian.org/blog/2018/01/12/arquillian-universe-bom-1-2-0-0/" rel="nofollow">Arquillian Universe 1.2.0.0</a> and <a class="jive-link-external-small" href="http://arquillian.org/blog/2018/01/17/arquillian-universe-bom-1-2-0-1/" rel="nofollow">Arquillian Universe 1.2.0.1</a></li><li><a class="jive-link-external-small" href="http://arquillian.org/blog/2018/01/16/resolver-3-1-0/" rel="nofollow">ShrinkWrap Resolver 3.1.0</a></li><li><a class="jive-link-external-small" href="http://arquillian.org/blog/2018/01/17/smart-testing-0-0-7/" rel="nofollow">Smart Testing 0.0.7</a></li></ul></li><li>The <a class="jive-link-external-small" href="http://teiid.org/" rel="nofollow">Teiid</a> team have announced the release of <a class="jive-link-external-small" href="http://teiid.blogspot.ca/2018/01/teiid-1002-released.html" rel="nofollow">Teiid 10.0.2</a></li><li>The <a class="jive-link-external-small" href="http://hibernate.org/" rel="nofollow">Hibernate</a> team have announced the release of <a class="jive-link-external-small" href="http://in.relation.to/2018/01/10/hibernate-orm-5111-final-release/" rel="nofollow">Hibernate ORM 5.1.11.Final</a></li><li>The <a class="jive-link-external-small" href="http://wildfly-swarm.io/" rel="nofollow">WildFly Swarm</a> team have announced the release of <a class="jive-link-external-small" href="http://wildfly-swarm.io/posts/announcing-wildfly-swarm-2018-1-0/" rel="nofollow">WildFly Swarm 2018.1.0</a></li><li>The <a class="jive-link-external-small" href="http://byteman.jboss.org/" rel="nofollow">Byteman</a> team have announced the release of <a class="jive-link-external-small" href="http://bytemanblog.blogspot.ca/2018/01/byteman-400-has-been-released.html" rel="nofollow">Byteman 4.0.0</a></li></ul><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>That's all for this week's edition of the JBoss Weekly Editorial, please join us again next week when we will take another look through the JBoss Communities in search of articles and&#160; interesting articles and discussions</p></div><!-- [DocumentBodyEnd:a9cf455b-0b13-4761-ab4d-69edacc9824b] -->]]></summary>
+	<content type="html">&lt;html&gt;&lt;!-- [DocumentBodyStart:a9cf455b-0b13-4761-ab4d-69edacc9824b] --&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;Welcome to our next edition of the JBoss Weekly Editorial where we take another journey through the JBoss Communities in search of interesting articles, I hope you all enjoy the ride.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Java EE Naming and Packaging&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;The Java EE Guardians recently wrote an open letter regarding Java EE Naming and Packaging, provoking a long discussion on the EE4J mailing list and a response from Oracle.&amp;nbsp; &lt;a data-containerid="1427" data-containertype="37" data-objectid="6156" data-objecttype="38" href="https://developer.jboss.org/blogs/mark.little/2018/01/18/java-ee-naming-and-package-discussions" target="_blank"&gt;If you want to understand the key points of the discussion then check out Mark Little's post on the subject&lt;/a&gt;, otherwise for more information take a look through the responses on the &lt;a href="http://dev.eclipse.org/mhonarc/lists/ee4j-community/" rel="nofollow" target="_blank"&gt;EE4J mailing list&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Transaction Recovery with Narayana&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;One of the most important and likely least understood aspects of any application is the role played by XA transactions in ensuring consistent modification of resources, not only when things go smoothly during the 2 Phase Commit but also when things go wrong and recovery is needed.&amp;nbsp; To help explain what is taking place Ondra has written a couple of articles which will be of interest, the first explaining &lt;a href="http://jbossts.blogspot.ca/2018/01/narayana-periodic-recovery-of-xa.html" rel="nofollow" target="_blank"&gt;what is meant by transaction recovery and explaining the way in which recovery occurs&lt;/a&gt; with the second covering &lt;a href="http://jbossts.blogspot.ca/2018/01/recovery-of-narayana-jdbc-transactional.html" rel="nofollow" target="_blank"&gt;how recovery impacts the Narayana JDBC transactional driver&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Continuing the Path to Cloud Happiness&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;a href="http://www.schabell.org/2018/01/10-steps-to-cloud-happiness-step-9.html" rel="nofollow" target="_blank"&gt;In the next step along his path to Cloud Happiness Eric introduces us to some examples from the Financial Service space&lt;/a&gt;.&amp;nbsp; Eric's first example is a mortgage application, followed by a loan application, then a customer evaluation application and ends with a customer on-boarding application.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;SSO Across Data Centers.&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Following on from an earlier post describing how to set up Keycloak in a bare metal Cross Data Center configuration Hynek has updated the example to demonstrate how the same can be achieved when deploying in Amazon Web Services environment.&amp;nbsp; &lt;a href="http://blog.keycloak.org/2018/01/keycloak-cross-data-center-setup-in-aws.html" rel="nofollow" target="_blank"&gt;Hynek covers not only the general architecture of the setup but also provides launch stacks to allow you to replicate the setup within your own AWS account&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Performance of Dynamic Method Access&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;When developing a framework it is often necessary for the framework to access methods within classes they are unaware of, if the framework is invoking these many times then performance is critical.&amp;nbsp; OptaPlanner has a need for this feature so &lt;a href="https://www.optaplanner.org/blog/2018/01/09/JavaReflectionButMuchFaster.html" rel="nofollow" target="_blank"&gt;Geoffrey spent time evaluating the options, leading to some very interesting results and discussions in the comments&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Infinispan 9.2 Improved collect()&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Infinispan includes support for distributed java streams and, while this feature was simple and concise for distributing the lambda functions across the cluster it was not as clean if the responses being collected included non Serializable results such as those created with the Java Collectors helper class.&amp;nbsp; &lt;a href="http://blog.infinispan.org/2018/01/improving-collect-for-distributed-java.html" rel="nofollow" target="_blank"&gt;With the release of Infinispan 9.2 the usability of this feature has been improved through the introduction of a new, overloaded method in the CacheStream class&lt;/a&gt;, allowing you to improve on the conciseness of your code.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Hibernate News&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;The latest version of &lt;a href="http://in.relation.to/2018/01/08/hibernate-community-newsletter-2018-01/" rel="nofollow" target="_blank"&gt;Hibernate News&lt;/a&gt; is out bringing new articles from the Hibernate Community.&amp;nbsp; Within this edition of the newsletter are articles discussing Integration Tests with Maven, joining JPA Entities with a Mapped Relationship, Inheritance in JPA, introductions to Hibernate Spatial and Hibernate Search and many more.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;New Releases&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The &lt;a href="http://arquillian.org/" rel="nofollow" target="_blank"&gt;Arquillian&lt;/a&gt; team have announced the release of&lt;ul&gt;&lt;li&gt;&lt;a href="http://arquillian.org/blog/2018/01/04/arquillian-cube-1-12-0/" rel="nofollow" target="_blank"&gt;Arquillian Cube Extension 1.12.0&lt;/a&gt; and &lt;a href="http://arquillian.org/blog/2018/01/18/arquillian-cube-1-13-0/" rel="nofollow" target="_blank"&gt;Arquillian Cube Extension 1.13.0&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="http://arquillian.org/blog/2018/01/12/arquillian-universe-bom-1-2-0-0/" rel="nofollow" target="_blank"&gt;Arquillian Universe 1.2.0.0&lt;/a&gt; and &lt;a href="http://arquillian.org/blog/2018/01/17/arquillian-universe-bom-1-2-0-1/" rel="nofollow" target="_blank"&gt;Arquillian Universe 1.2.0.1&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="http://arquillian.org/blog/2018/01/16/resolver-3-1-0/" rel="nofollow" target="_blank"&gt;ShrinkWrap Resolver 3.1.0&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="http://arquillian.org/blog/2018/01/17/smart-testing-0-0-7/" rel="nofollow" target="_blank"&gt;Smart Testing 0.0.7&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;The &lt;a href="http://teiid.org/" rel="nofollow" target="_blank"&gt;Teiid&lt;/a&gt; team have announced the release of &lt;a href="http://teiid.blogspot.ca/2018/01/teiid-1002-released.html" rel="nofollow" target="_blank"&gt;Teiid 10.0.2&lt;/a&gt;&lt;/li&gt;&lt;li&gt;The &lt;a href="http://hibernate.org/" rel="nofollow" target="_blank"&gt;Hibernate&lt;/a&gt; team have announced the release of &lt;a href="http://in.relation.to/2018/01/10/hibernate-orm-5111-final-release/" rel="nofollow" target="_blank"&gt;Hibernate ORM 5.1.11.Final&lt;/a&gt;&lt;/li&gt;&lt;li&gt;The &lt;a href="http://wildfly-swarm.io/" rel="nofollow" target="_blank"&gt;WildFly Swarm&lt;/a&gt; team have announced the release of &lt;a href="http://wildfly-swarm.io/posts/announcing-wildfly-swarm-2018-1-0/" rel="nofollow" target="_blank"&gt;WildFly Swarm 2018.1.0&lt;/a&gt;&lt;/li&gt;&lt;li&gt;The &lt;a href="http://byteman.jboss.org/" rel="nofollow" target="_blank"&gt;Byteman&lt;/a&gt; team have announced the release of &lt;a href="http://bytemanblog.blogspot.ca/2018/01/byteman-400-has-been-released.html" rel="nofollow" target="_blank"&gt;Byteman 4.0.0&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;That's all for this week's edition of the JBoss Weekly Editorial, please join us again next week when we will take another look through the JBoss Communities in search of articles and&amp;nbsp; interesting articles and discussions&lt;/p&gt;&lt;/div&gt;&lt;!-- [DocumentBodyEnd:a9cf455b-0b13-4761-ab4d-69edacc9824b] --&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/S6Mh53kxTQg" height="1" width="1" alt=""/&gt;</content>
+	<updated>2018-01-19T00:56:55+00:00</updated>
+	<author><name>Kevin Conner</name></author>
+	<source>
+		<link rel="self" href="http://community.jboss.org/blogs/weekly-editorial/feeds/" />
+		<title>Weekly Editorial</title></source>
+
+	<category term="hibernate" />
+
+	<category term="transactions" />
+
+	<category term="teiid" />
+
+	<category term="infinispan" />
+
+	<category term="byteman" />
+
+	<category term="news" />
+
+	<category term="weekly_editorial" />
+
+	<category term="narayana" />
+
+	<category term="optaplanner" />
+
+	<category term="weekly_udpate" />
+
+	<category term="java ee" />
+
+	<category term="arquiillian" />
+
+	<category term="wildfly-swarm" />
+
+
+<feedburner:origLink>https://developer.jboss.org/blogs/weekly-editorial/2018/01/18/this-week-in-jboss-18th-january-2018-java-ee-naming</feedburner:origLink></entry>
+
+<entry>
+	<id>https://tools.jboss.org/blog/windup_4.0.0.ga_release.html</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/vPvuEdp293U/windup_4.0.0.ga_release.html" rel="alternate" type="text/html" />
+	<title>RHAMT Eclipse Plugin 4.0.0.Final has been released!</title>
+	<summary type="html"><![CDATA[
+      <div><div id="preamble">
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>We are happy to announce the latest release of the Red Hat Application Migration Toolkit (RHAMT) Eclipse Plugin.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="getting-started"><a class="anchor" href="#getting-started"></a>Getting Started</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>It is now available through JBoss Central, and from the update site <a href="http://download.jboss.org/jbosstools/oxygen/stable/updates/rhamt/">here</a>.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="what-is-rhamt"><a class="anchor" href="#what-is-rhamt"></a>What is RHAMT?</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>RHAMT is an automated application migration and assessment tool.</p>
+      </div>
+      <div class="paragraph">
+      <p>Example ways to RHAMT up your code:</p>
+      </div>
+      <div class="ulist">
+      <ul>
+      <li>
+      <p>Moving your application from WebLogic to EAP, or WebSphere to EAP</p>
+      </li>
+      <li>
+      <p>Version upgrade from Hibernate 3 to Hibernate 4, or EAP 6 to EAP 7</p>
+      </li>
+      <li>
+      <p>Change UI technologies from Seam 2 to pure JSF 2.</p>
+      </li>
+      </ul>
+      </div>
+      <div class="paragraph">
+      <p>An example of how to run the RHAMT CLI:</p>
+      </div>
+      <div class="paragraph">
+      <p><code>$ ./rhamt-cli --input /path/to/jee-example-app-1.0.0.ear --output /path/to/output --source weblogic --target eap:7</code></p>
+      </div>
+      <div class="paragraph">
+      <p>The output is a report used to assess and prioritize migration and modernization efforts.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="the-rhamt-eclipse-plugin-what-does-it-do"><a class="anchor" href="#the-rhamt-eclipse-plugin-what-does-it-do"></a>The RHAMT Eclipse Plugin - What does it do?</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>Consider an application migration comprised of thousands of files, with a myriad of small changes, not to mention the tediousness of switching between
+       the report and your IDE. Who wants to be the engineer assigned to that task? :)
+      Instead, this tooling marks the source files containing issues, making it easy to organize, search, and in many cases automatically fix issues using quick fixes.</p>
+      </div>
+      <div class="paragraph">
+      <p>Let me give you a quick walkthrough.</p>
+      </div>
+      <div class="sect2">
+      <h3 id="ruleset-wizard"><a class="anchor" href="#ruleset-wizard"></a>Ruleset Wizard</h3>
+      <div class="paragraph">
+      <p>We now have quickstart template code generators.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="./images/rhamt/ruleset_wizard.gif" alt="Rueset Wizard" />
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="rule-creation-from-code"><a class="anchor" href="#rule-creation-from-code"></a>Rule Creation From Code</h3>
+      <div class="paragraph">
+      <p>We have also added rule generators for selected snippets of code.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="./images/rhamt/type_implements.gif" alt="Rule Generation From Source" />
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="ruleset-graphical-editor"><a class="anchor" href="#ruleset-graphical-editor"></a>Ruleset Graphical Editor</h3>
+      <div class="paragraph">
+      <p>Ruleset navigation and editing is faster and more intuitive thanks to the new graphical editor.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="./images/rhamt/ruleset_editor.gif" alt="Graphical Editor" />
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="ruleset-view"><a class="anchor" href="#ruleset-view"></a>Ruleset View</h3>
+      <div class="paragraph">
+      <p>We have created a view dedicated to the management of rulesets. Default rulesets shipped with RHAMT can now be opened, edited, and referenced while authoring
+      your own custom rulesets.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="./images/rhamt/ruleset_view.gif" alt="Ruleset View" />
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="run-configuration"><a class="anchor" href="#run-configuration"></a>Run Configuration</h3>
+      <div class="paragraph">
+      <p>The Eclipse plugin interacts with the RHAMT CLI process, thereby making it possible to specify command line options and custom rulesets.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="./images/rhamt/run_configuration.gif" alt="Run Configuration" />
+      </div>
+      </div>
+      </div>
+      <div class="sect2">
+      <h3 id="ruleset-submission"><a class="anchor" href="#ruleset-submission"></a>Ruleset Submission</h3>
+      <div class="paragraph">
+      <p>Lastly, contribute your custom rulesets back to the community from within the IDE.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="./images/rhamt/ruleset_submission.png" alt="Ruleset Submission" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p><br /></p>
+      </div>
+      <div class="paragraph">
+      <p>You can find more detailed information <a href="https://access.redhat.com/documentation/en-us/red_hat_application_migration_toolkit/">here</a>.</p>
+      </div>
+      <div class="paragraph">
+      <p>Our goal is to make the RHAMT tooling easy to use. We look forward to your feedback and comments!<br /></p>
+      </div>
+      <div class="paragraph">
+      <p>Have fun!<br />
+      John Steele<br />
+      <a href="https://github.com/johnsteele/">github/johnsteele</a></p>
+      </div>
+      </div>
+      </div>
+      </div></div>
+    ]]></summary>
+	<content type="html">&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;We are happy to announce the latest release of the Red Hat Application Migration Toolkit (RHAMT) Eclipse Plugin.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h2&gt;&lt;a href="#getting-started" target="_blank"&gt;&lt;/a&gt;Getting Started&lt;/h2&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;It is now available through JBoss Central, and from the update site &lt;a href="http://download.jboss.org/jbosstools/oxygen/stable/updates/rhamt/" target="_blank"&gt;here&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h2&gt;&lt;a href="#what-is-rhamt" target="_blank"&gt;&lt;/a&gt;What is RHAMT?&lt;/h2&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;RHAMT is an automated application migration and assessment tool.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Example ways to RHAMT up your code:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;ul&gt;&lt;li&gt;
+      &lt;p&gt;Moving your application from WebLogic to EAP, or WebSphere to EAP&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Version upgrade from Hibernate 3 to Hibernate 4, or EAP 6 to EAP 7&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+      &lt;p&gt;Change UI technologies from Seam 2 to pure JSF 2.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;/ul&gt;&lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;An example of how to run the RHAMT CLI:&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;&lt;code&gt;$ ./rhamt-cli --input /path/to/jee-example-app-1.0.0.ear --output /path/to/output --source weblogic --target eap:7&lt;/code&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;The output is a report used to assess and prioritize migration and modernization efforts.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h2&gt;&lt;a href="#the-rhamt-eclipse-plugin-what-does-it-do" target="_blank"&gt;&lt;/a&gt;The RHAMT Eclipse Plugin - What does it do?&lt;/h2&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Consider an application migration comprised of thousands of files, with a myriad of small changes, not to mention the tediousness of switching between
+       the report and your IDE. Who wants to be the engineer assigned to that task? :)
+      Instead, this tooling marks the source files containing issues, making it easy to organize, search, and in many cases automatically fix issues using quick fixes.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Let me give you a quick walkthrough.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#ruleset-wizard" target="_blank"&gt;&lt;/a&gt;Ruleset Wizard&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;We now have quickstart template code generators.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="./images/rhamt/ruleset_wizard.gif" alt="Rueset Wizard"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#rule-creation-from-code" target="_blank"&gt;&lt;/a&gt;Rule Creation From Code&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;We have also added rule generators for selected snippets of code.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="./images/rhamt/type_implements.gif" alt="Rule Generation From Source"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#ruleset-graphical-editor" target="_blank"&gt;&lt;/a&gt;Ruleset Graphical Editor&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;Ruleset navigation and editing is faster and more intuitive thanks to the new graphical editor.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="./images/rhamt/ruleset_editor.gif" alt="Graphical Editor"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#ruleset-view" target="_blank"&gt;&lt;/a&gt;Ruleset View&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;We have created a view dedicated to the management of rulesets. Default rulesets shipped with RHAMT can now be opened, edited, and referenced while authoring
+      your own custom rulesets.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="./images/rhamt/ruleset_view.gif" alt="Ruleset View"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#run-configuration" target="_blank"&gt;&lt;/a&gt;Run Configuration&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;The Eclipse plugin interacts with the RHAMT CLI process, thereby making it possible to specify command line options and custom rulesets.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="./images/rhamt/run_configuration.gif" alt="Run Configuration"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#ruleset-submission" target="_blank"&gt;&lt;/a&gt;Ruleset Submission&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;p&gt;Lastly, contribute your custom rulesets back to the community from within the IDE.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="./images/rhamt/ruleset_submission.png" alt="Ruleset Submission"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;You can find more detailed information &lt;a href="https://access.redhat.com/documentation/en-us/red_hat_application_migration_toolkit/" target="_blank"&gt;here&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Our goal is to make the RHAMT tooling easy to use. We look forward to your feedback and comments!&lt;br&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Have fun!&lt;br&gt;
+      John Steele&lt;br&gt;&lt;a href="https://github.com/johnsteele/" target="_blank"&gt;github/johnsteele&lt;/a&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/vPvuEdp293U" height="1" width="1" alt=""/&gt;</content>
+	<updated>2018-01-10T07:42:24+00:00</updated>
+	<author><name>josteele</name></author>
+	<source>
+		<link rel="self" href="http://tools.jboss.org/blog/" />
+		<title>JBoss Tools</title></source>
+
+	<category term="release" />
+
+	<category term="rhamt" />
+
+	<category term="windup" />
+
+	<category term="jbosstools" />
+
+	<category term="redhat-rhamt" />
+
+
+<feedburner:origLink>https://tools.jboss.org/blog/windup_4.0.0.ga_release.html</feedburner:origLink></entry>
+
+<entry>
+	<id>https://developer.jboss.org/blogs/weekly-editorial/2018/01/04/this-week-in-jboss-4th-january-2018-new-year2018changetoyear-of-openshift</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/GSCXP2PEPzE/this-week-in-jboss-4th-january-2018-new-year2018changetoyear-of-openshift" rel="alternate" type="text/html" />
+	<title>This week in JBoss: (4th January 2018): new Year("2018").changeTo("year-of-openshift");</title>
+	<summary type="html"><![CDATA[<!-- [DocumentBodyStart:f5ac59ac-135a-487d-9f84-97689af04f5a] --><div class="jive-rendered-content"><p><em>Welcome to our first installment of the JBoss Weekly Editorial 2018 ! We are looking for 2018, an other year that will certainly be quite interesting for the JBoss community, as the integration of its middleware products in Openshift is accelerating... If you have not boarded yet the Openshift wagon - here is the perfect opportunity! <span aria-label="Happy" class="emoticon_happy emoticon-inline" style="height:16px;width:16px;"></span></em></p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>JBoss on Openshift!</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>Openshift is an excellent platform to deploy application and makes them scale. However, as always, it's not that easy to figure out what is the best way to do so. If you are having this kind of question regarding your own application, take a look at <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2018/01/02/openshift-online-starter-using-jboss-developer-studio/" rel="nofollow">Develop and Deploy on OpenShift Online Starter using Red Hat JBoss Developer Studio</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>And if you want a more advanced example, take a look at this very interesting article on <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2018/01/04/openshift-jboss-data-virtualization-sql-server/" rel="nofollow">JBoss Data Virtualization on OpenShift: Integrating a Remote SQL Server Database</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Techbytes</h2><h2></h2><p>As often, the holiday season of the last weeks have been a perfect opportunity for many members of the community to publish quite in-depth article on topic of their predilection. The first of this list is certainly the one from Bela Ban, core developer of JGroups, on a recent interesting contribution to the framework that allow to<a class="jive-link-external-small" href="http://belaban.blogspot.de/2018/01/injecting-split-brain-into-jgroups.html" rel="nofollow"> inject a split brain into a JGroups cluster</a>.&#160; In a similar fashion, the Keycloak community took the time to document how to&#160; use <a class="jive-link-external-small" href="http://blog.keycloak.org/2018/01/keycloak-apache-and-openid-connect.html" rel="nofollow">Keycloak, Apache and OpenID Connect</a> together. And as along as we are talking authentification and autorisation, let's mention this pretty interesting article on <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2018/01/03/saml-sso-remote-ejb-picketlink/" rel="nofollow">Enabling SAML-based SSO with Remote EJB through Picketlink</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>The next article might come handy if you want to play with Wildfly's transaction manager Narayana. Indeed, the article documents how to use</p><p><a class="jive-link-external-small" href="http://jbossts.blogspot.de/2017/12/narayana-jdbc-transactional-driver.html" rel="nofollow">Narayana jdbc transactional driver</a> in a standalone application. Along the same line, as an other article covers <a class="jive-link-external-small" href="http://in.relation.to/2018/01/04/adding-new-constraint-to-engine/" rel="nofollow">How to add a new constraint to Hibernate Validator in a few simple steps</a>. Between a transactionnal JDBC driver and custom constraint in Hibernate Validator, your data should be free of many issues now <span aria-label="Happy" class="emoticon_happy emoticon-inline" style="height:16px;width:16px;"></span>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>Last, but certainly not the least, here is a very, very useful article describing how to <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2018/01/02/enabling-byteman-script-red-hat-jboss-fuse-amq/" rel="nofollow">enable Byteman Script with Red Hat JBoss Fuse and AMQ.</a> Byteman scripts is an excellent way to investigate, and even resolve, issue on your application. It is definitely worth exploring the tool if you don't know it and this article is an excellent opportunity to do so!</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Evangelist's Corner</h2><h2></h2><p>With the end of 2017, Eric D.Schabell took the time to a <a class="jive-link-external-small" href="http://www.schabell.org/2017/12/2017-in-review-global-technology-evangelist-director.html" rel="nofollow">2017 in review - Global Technology Evangelist Director and more</a>, but also released an interesting article on <a class="jive-link-external-small" href="http://www.schabell.org/2018/01/appdev-in-cloud-financial-services-process-driven-application.html" rel="nofollow">AppDev in the Cloud - Financial Services with Process Driven Application</a>. If those articles are not enough, do also checkout this</p><p><a class="jive-link-external-small" href="http://wei-meilin.blogspot.de/2018/01/red-hat-fuse-tech-quickies-series-zero.html" rel="nofollow">Red Hat Fuse - Tech Quickies series - Zero. Hello world</a> from Christina!</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Releases, releases, releases...</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><ul><li><a class="jive-link-external-small" href="http://teiid.blogspot.de/2018/01/teiid-936-released.html" rel="nofollow">Teiid 9.3.6 Released</a></li><li><a class="jive-link-external-small" href="http://blog.keycloak.org/2018/01/keycloak-343final-released.html" rel="nofollow">Keycloak 3.4.3.Final released</a></li></ul><p style="min-height: 8pt; padding: 0px;">&#160;</p><p><em>Hopefully, you have found something in this week's editorial to pique your interest and give you something to explore while waiting for next week's installment. Join us here next week for more news from the JBoss Community.</em></p></div><!-- [DocumentBodyEnd:f5ac59ac-135a-487d-9f84-97689af04f5a] -->]]></summary>
+	<content type="html">&lt;html&gt;&lt;!-- [DocumentBodyStart:f5ac59ac-135a-487d-9f84-97689af04f5a] --&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;&lt;em&gt;Welcome to our first installment of the JBoss Weekly Editorial 2018 ! We are looking for 2018, an other year that will certainly be quite interesting for the JBoss community, as the integration of its middleware products in Openshift is accelerating... If you have not boarded yet the Openshift wagon - here is the perfect opportunity! &lt;span aria-label="Happy"&gt;&lt;/span&gt;&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;JBoss on Openshift!&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Openshift is an excellent platform to deploy application and makes them scale. However, as always, it's not that easy to figure out what is the best way to do so. If you are having this kind of question regarding your own application, take a look at &lt;a href="https://developers.redhat.com/blog/2018/01/02/openshift-online-starter-using-jboss-developer-studio/" rel="nofollow" target="_blank"&gt;Develop and Deploy on OpenShift Online Starter using Red Hat JBoss Developer Studio&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;And if you want a more advanced example, take a look at this very interesting article on &lt;a href="https://developers.redhat.com/blog/2018/01/04/openshift-jboss-data-virtualization-sql-server/" rel="nofollow" target="_blank"&gt;JBoss Data Virtualization on OpenShift: Integrating a Remote SQL Server Database&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Techbytes&lt;/h2&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;As often, the holiday season of the last weeks have been a perfect opportunity for many members of the community to publish quite in-depth article on topic of their predilection. The first of this list is certainly the one from Bela Ban, core developer of JGroups, on a recent interesting contribution to the framework that allow to&lt;a href="http://belaban.blogspot.de/2018/01/injecting-split-brain-into-jgroups.html" rel="nofollow" target="_blank"&gt; inject a split brain into a JGroups cluster&lt;/a&gt;.&amp;nbsp; In a similar fashion, the Keycloak community took the time to document how to&amp;nbsp; use &lt;a href="http://blog.keycloak.org/2018/01/keycloak-apache-and-openid-connect.html" rel="nofollow" target="_blank"&gt;Keycloak, Apache and OpenID Connect&lt;/a&gt; together. And as along as we are talking authentification and autorisation, let's mention this pretty interesting article on &lt;a href="https://developers.redhat.com/blog/2018/01/03/saml-sso-remote-ejb-picketlink/" rel="nofollow" target="_blank"&gt;Enabling SAML-based SSO with Remote EJB through Picketlink&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;The next article might come handy if you want to play with Wildfly's transaction manager Narayana. Indeed, the article documents how to use&lt;/p&gt;&lt;p&gt;&lt;a href="http://jbossts.blogspot.de/2017/12/narayana-jdbc-transactional-driver.html" rel="nofollow" target="_blank"&gt;Narayana jdbc transactional driver&lt;/a&gt; in a standalone application. Along the same line, as an other article covers &lt;a href="http://in.relation.to/2018/01/04/adding-new-constraint-to-engine/" rel="nofollow" target="_blank"&gt;How to add a new constraint to Hibernate Validator in a few simple steps&lt;/a&gt;. Between a transactionnal JDBC driver and custom constraint in Hibernate Validator, your data should be free of many issues now &lt;span aria-label="Happy"&gt;&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Last, but certainly not the least, here is a very, very useful article describing how to &lt;a href="https://developers.redhat.com/blog/2018/01/02/enabling-byteman-script-red-hat-jboss-fuse-amq/" rel="nofollow" target="_blank"&gt;enable Byteman Script with Red Hat JBoss Fuse and AMQ.&lt;/a&gt; Byteman scripts is an excellent way to investigate, and even resolve, issue on your application. It is definitely worth exploring the tool if you don't know it and this article is an excellent opportunity to do so!&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Evangelist's Corner&lt;/h2&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;With the end of 2017, Eric D.Schabell took the time to a &lt;a href="http://www.schabell.org/2017/12/2017-in-review-global-technology-evangelist-director.html" rel="nofollow" target="_blank"&gt;2017 in review - Global Technology Evangelist Director and more&lt;/a&gt;, but also released an interesting article on &lt;a href="http://www.schabell.org/2018/01/appdev-in-cloud-financial-services-process-driven-application.html" rel="nofollow" target="_blank"&gt;AppDev in the Cloud - Financial Services with Process Driven Application&lt;/a&gt;. If those articles are not enough, do also checkout this&lt;/p&gt;&lt;p&gt;&lt;a href="http://wei-meilin.blogspot.de/2018/01/red-hat-fuse-tech-quickies-series-zero.html" rel="nofollow" target="_blank"&gt;Red Hat Fuse - Tech Quickies series - Zero. Hello world&lt;/a&gt; from Christina!&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Releases, releases, releases...&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://teiid.blogspot.de/2018/01/teiid-936-released.html" rel="nofollow" target="_blank"&gt;Teiid 9.3.6 Released&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="http://blog.keycloak.org/2018/01/keycloak-343final-released.html" rel="nofollow" target="_blank"&gt;Keycloak 3.4.3.Final released&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Hopefully, you have found something in this week's editorial to pique your interest and give you something to explore while waiting for next week's installment. Join us here next week for more news from the JBoss Community.&lt;/em&gt;&lt;/p&gt;&lt;/div&gt;&lt;!-- [DocumentBodyEnd:f5ac59ac-135a-487d-9f84-97689af04f5a] --&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/GSCXP2PEPzE" height="1" width="1" alt=""/&gt;</content>
+	<updated>2018-01-04T15:04:50+00:00</updated>
+	<author><name>Romain Pelisse</name></author>
+	<source>
+		<link rel="self" href="http://community.jboss.org/blogs/weekly-editorial/feeds/" />
+		<title>Weekly Editorial</title></source>
+
+	<category term="ejb" />
+
+	<category term="saml" />
+
+	<category term="jgroups" />
+
+	<category term="byteman" />
+
+	<category term="amqp" />
+
+	<category term="picketlink" />
+
+	<category term="openid" />
+
+	<category term="openshift" />
+
+	<category term="narayana" />
+
+	<category term="fuse" />
+
+	<category term="keycloak" />
+
+	<category term="jboss data virtualization" />
+
+	<category term="red hat jboss developer studio" />
+
+	<category term="teiid jdbc" />
+
+
+<feedburner:origLink>https://developer.jboss.org/blogs/weekly-editorial/2018/01/04/this-week-in-jboss-4th-january-2018-new-year2018changetoyear-of-openshift</feedburner:origLink></entry>
+
+<entry>
+	<id>https://developer.jboss.org/blogs/weekly-editorial/2017/12/21/this-week-in-jboss-21st-december-2017-microservices-blockchain-sagas-and-more</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/dY4w_MV5KRE/this-week-in-jboss-21st-december-2017-microservices-blockchain-sagas-and-more" rel="alternate" type="text/html" />
+	<title>This week in JBoss: (21st December 2017): Microservices, Blockchain, Sagas and more</title>
+	<summary type="html"><![CDATA[<!-- [DocumentBodyStart:2bb5cabe-a5e6-4fd4-b539-f85e7a1fc60d] --><div class="jive-rendered-content"><p>Welcome to our penultimate JBoss Weekly Editorial for 2017 and my final ride through the JBoss Communities in search of all which is interesting and useful, I hope to have found something of interest to keep you busy as the year comes to a close.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Microservices with Vert.x</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>Vert.x is a small footprint, asynchronous framework which is ideally suited for Microservices applications; as examples of its capabilities and small footprint we have two excellent articles demonstrating its applicability on small footprint devices and the cloud.&#160; In our first article Usman <a class="jive-link-external-small" href="http://vertx.io/blog/tcp-client-using-eclipse-vert-x-kotlin-and-gradle-build/" rel="nofollow">demonstrates how to run a small Vert.x application on a Raspberry Pi, part of his hobby project to control the behaviour of the Raspberry Pi using Google Home Mini and/or Alexa</a>.&#160; In our second article Lazar demonstrates how to <a class="jive-link-external-small" href="http://vertx.io/blog/eclipse-vert-x-based-framework-url-shortener-backend/" rel="nofollow">integrate Vert.x with AWS Lambda, enabling small footprint, reactive, cloud based serverless applications to be developed and deployed at scale in the cloud</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Blockchain in the Cloud</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>Blockchain technology has been in the news for various reasons, not only as the basis for various cryptocurrencies but also as a decentralised application platform supporting smart contracts on top of the distributed ledger.&#160; At a recent Red Hat Customer Forum event in Sydney, Australia a small team gave a live demonstration <a class="jive-link-external-small" href="http://www.schabell.org/2017/12/blockchain-powers-travel-new-hybrid-cloud-heights.html" rel="nofollow">showing how a fictitious company called Destinasia Travel could leverage the power of the distributed ledger to implement a shared Loyalty Points system with many of their customers travel services.</a></p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Sagas and Narayana LRA</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>The Narayana transaction manager provides an implementation of the saga transactional pattern through Narayana LRA (Long Running Actions) however this is not the only framework available, in the first article this week from the transaction team <a class="jive-link-external-small" href="http://jbossts.blogspot.ca/2017/12/saga-implementations-comparison.html" rel="nofollow">Martin introduces three frameworks, Narayana LRA, Axon framework and Eventuate.io and compares their features and usability</a>.&#160; If you wish to learn more about sagas and how they differ from two-phase commit transactions then Ondra's article <a class="jive-link-external-small" href="http://jbossts.blogspot.ca/2017/12/narayana-lra-implementation-of-saga.html" rel="nofollow">will walk you through the details, discussing compensation actions and their coordination as implemented in Narayana LRA</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Choosing between Apache Camel DSLs</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>When working with Apache Camel you have a choice to work with the XML or Java DSLs so how to you choose which is the better option?&#160; The answer obviously depends a lot on your circumstances as well as how each option will fit in with your processes and team and <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2017/12/21/camel-dsl-choose/" rel="nofollow">in order to determine which to use you will first need advice on how they compare to each other</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>JBoss Out and About</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>This has been a busy year for Infinispan with many of the team giving presentations at various conferences, user groups and other events, before heading out on his vacation <a class="jive-link-external-small" href="http://blog.infinispan.org/2017/12/2017-busy-year-for-infinispan.html" rel="nofollow">Galder has provided a write-up of the year along with links to the appropriate presentations</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>New Releases</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><ul><li>The <a class="jive-link-external-small" href="http://infinispan.org/" rel="nofollow">Infinispan</a> team announced the release of <a class="jive-link-external-small" href="http://blog.infinispan.org/2017/12/infinispan-920beta2-released.html" rel="nofollow">Infinispan 9.2.0.Beta2</a> and <a class="jive-link-external-small" href="http://blog.infinispan.org/2017/12/infinispan-911final-released.html" rel="nofollow">Infinispan 9.1.4.Final</a>.</li><li>The <a class="jive-link-external-small" href="http://arquillian.org/" rel="nofollow">Arquillian</a> team have announced the release of <a class="jive-link-external-small" href="http://arquillian.org/blog/2017/12/18/arquillian-universe-bom-1-1-15-1/" rel="nofollow">Arquillian Universe 1.1.15.1</a>, <a class="jive-link-external-small" href="http://arquillian.org/blog/2017/12/18/arquillian-universe-bom-1-1-15-2/" rel="nofollow">Arquillian Universe 1.1.15.2</a>, <a class="jive-link-external-small" href="http://arquillian.org/blog/2017/12/18/arquillian-cube-1-11-0/" rel="nofollow">Arquillian Cube Extension 1.11.0</a> and <a class="jive-link-external-small" href="http://arquillian.org/blog/2017/12/20/arquillian-core-1-2-0-Final/" rel="nofollow">Arquillian Core 1.2.0.Final</a>.</li><li>The <a class="jive-link-external-small" href="http://hibernate.org/" rel="nofollow">Hibernate</a> team have announced the release of <a class="jive-link-external-small" href="http://in.relation.to/2017/12/20/hibernate-validator-607-final-out/" rel="nofollow">Hibernate Validator 6.0.7.Final</a>.</li><li>The <a class="jive-link-external-small" href="http://keycloak.org/" rel="nofollow">Keycloak</a> team announced the release of <a class="jive-link-external-small" href="http://blog.keycloak.org/2017/12/keycloak-342final-released.html" rel="nofollow">Keycloak 3.4.2.Final</a>.</li></ul><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>That's all for this week, join us again next week when we will take our last tour of the year through the JBoss Communities to provide you with some interesting reading over the New Year.</p></div><!-- [DocumentBodyEnd:2bb5cabe-a5e6-4fd4-b539-f85e7a1fc60d] -->]]></summary>
+	<content type="html">&lt;html&gt;&lt;!-- [DocumentBodyStart:2bb5cabe-a5e6-4fd4-b539-f85e7a1fc60d] --&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;Welcome to our penultimate JBoss Weekly Editorial for 2017 and my final ride through the JBoss Communities in search of all which is interesting and useful, I hope to have found something of interest to keep you busy as the year comes to a close.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Microservices with Vert.x&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Vert.x is a small footprint, asynchronous framework which is ideally suited for Microservices applications; as examples of its capabilities and small footprint we have two excellent articles demonstrating its applicability on small footprint devices and the cloud.&amp;nbsp; In our first article Usman &lt;a href="http://vertx.io/blog/tcp-client-using-eclipse-vert-x-kotlin-and-gradle-build/" rel="nofollow" target="_blank"&gt;demonstrates how to run a small Vert.x application on a Raspberry Pi, part of his hobby project to control the behaviour of the Raspberry Pi using Google Home Mini and/or Alexa&lt;/a&gt;.&amp;nbsp; In our second article Lazar demonstrates how to &lt;a href="http://vertx.io/blog/eclipse-vert-x-based-framework-url-shortener-backend/" rel="nofollow" target="_blank"&gt;integrate Vert.x with AWS Lambda, enabling small footprint, reactive, cloud based serverless applications to be developed and deployed at scale in the cloud&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Blockchain in the Cloud&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Blockchain technology has been in the news for various reasons, not only as the basis for various cryptocurrencies but also as a decentralised application platform supporting smart contracts on top of the distributed ledger.&amp;nbsp; At a recent Red Hat Customer Forum event in Sydney, Australia a small team gave a live demonstration &lt;a href="http://www.schabell.org/2017/12/blockchain-powers-travel-new-hybrid-cloud-heights.html" rel="nofollow" target="_blank"&gt;showing how a fictitious company called Destinasia Travel could leverage the power of the distributed ledger to implement a shared Loyalty Points system with many of their customers travel services.&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Sagas and Narayana LRA&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;The Narayana transaction manager provides an implementation of the saga transactional pattern through Narayana LRA (Long Running Actions) however this is not the only framework available, in the first article this week from the transaction team &lt;a href="http://jbossts.blogspot.ca/2017/12/saga-implementations-comparison.html" rel="nofollow" target="_blank"&gt;Martin introduces three frameworks, Narayana LRA, Axon framework and Eventuate.io and compares their features and usability&lt;/a&gt;.&amp;nbsp; If you wish to learn more about sagas and how they differ from two-phase commit transactions then Ondra's article &lt;a href="http://jbossts.blogspot.ca/2017/12/narayana-lra-implementation-of-saga.html" rel="nofollow" target="_blank"&gt;will walk you through the details, discussing compensation actions and their coordination as implemented in Narayana LRA&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Choosing between Apache Camel DSLs&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;When working with Apache Camel you have a choice to work with the XML or Java DSLs so how to you choose which is the better option?&amp;nbsp; The answer obviously depends a lot on your circumstances as well as how each option will fit in with your processes and team and &lt;a href="https://developers.redhat.com/blog/2017/12/21/camel-dsl-choose/" rel="nofollow" target="_blank"&gt;in order to determine which to use you will first need advice on how they compare to each other&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;JBoss Out and About&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;This has been a busy year for Infinispan with many of the team giving presentations at various conferences, user groups and other events, before heading out on his vacation &lt;a href="http://blog.infinispan.org/2017/12/2017-busy-year-for-infinispan.html" rel="nofollow" target="_blank"&gt;Galder has provided a write-up of the year along with links to the appropriate presentations&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;New Releases&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The &lt;a href="http://infinispan.org/" rel="nofollow" target="_blank"&gt;Infinispan&lt;/a&gt; team announced the release of &lt;a href="http://blog.infinispan.org/2017/12/infinispan-920beta2-released.html" rel="nofollow" target="_blank"&gt;Infinispan 9.2.0.Beta2&lt;/a&gt; and &lt;a href="http://blog.infinispan.org/2017/12/infinispan-911final-released.html" rel="nofollow" target="_blank"&gt;Infinispan 9.1.4.Final&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;The &lt;a href="http://arquillian.org/" rel="nofollow" target="_blank"&gt;Arquillian&lt;/a&gt; team have announced the release of &lt;a href="http://arquillian.org/blog/2017/12/18/arquillian-universe-bom-1-1-15-1/" rel="nofollow" target="_blank"&gt;Arquillian Universe 1.1.15.1&lt;/a&gt;, &lt;a href="http://arquillian.org/blog/2017/12/18/arquillian-universe-bom-1-1-15-2/" rel="nofollow" target="_blank"&gt;Arquillian Universe 1.1.15.2&lt;/a&gt;, &lt;a href="http://arquillian.org/blog/2017/12/18/arquillian-cube-1-11-0/" rel="nofollow" target="_blank"&gt;Arquillian Cube Extension 1.11.0&lt;/a&gt; and &lt;a href="http://arquillian.org/blog/2017/12/20/arquillian-core-1-2-0-Final/" rel="nofollow" target="_blank"&gt;Arquillian Core 1.2.0.Final&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;The &lt;a href="http://hibernate.org/" rel="nofollow" target="_blank"&gt;Hibernate&lt;/a&gt; team have announced the release of &lt;a href="http://in.relation.to/2017/12/20/hibernate-validator-607-final-out/" rel="nofollow" target="_blank"&gt;Hibernate Validator 6.0.7.Final&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;The &lt;a href="http://keycloak.org/" rel="nofollow" target="_blank"&gt;Keycloak&lt;/a&gt; team announced the release of &lt;a href="http://blog.keycloak.org/2017/12/keycloak-342final-released.html" rel="nofollow" target="_blank"&gt;Keycloak 3.4.2.Final&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;That's all for this week, join us again next week when we will take our last tour of the year through the JBoss Communities to provide you with some interesting reading over the New Year.&lt;/p&gt;&lt;/div&gt;&lt;!-- [DocumentBodyEnd:2bb5cabe-a5e6-4fd4-b539-f85e7a1fc60d] --&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/dY4w_MV5KRE" height="1" width="1" alt=""/&gt;</content>
+	<updated>2017-12-22T00:31:40+00:00</updated>
+	<author><name>Kevin Conner</name></author>
+	<source>
+		<link rel="self" href="http://community.jboss.org/blogs/weekly-editorial/feeds/" />
+		<title>Weekly Editorial</title></source>
+
+	<category term="hibernate" />
+
+	<category term="infinispan" />
+
+	<category term="arquillian" />
+
+	<category term="camel" />
+
+	<category term="openshift" />
+
+	<category term="weekly_update" />
+
+	<category term="news" />
+
+	<category term="weekly_editorial" />
+
+	<category term="narayana" />
+
+	<category term="vert.x" />
+
+	<category term="keycloak" />
+
+	<category term="sagas" />
+
+
+<feedburner:origLink>https://developer.jboss.org/blogs/weekly-editorial/2017/12/21/this-week-in-jboss-21st-december-2017-microservices-blockchain-sagas-and-more</feedburner:origLink></entry>
+
+<entry>
+	<id>https://developer.jboss.org/blogs/weekly-editorial/2017/12/15/the-week-in-the-jboss-community-2017-12-15</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/TV6cGiCx1Kc/the-week-in-the-jboss-community-2017-12-15" rel="alternate" type="text/html" />
+	<title>The Week in the JBoss Community (2017-12-15)</title>
+	<summary type="html"><![CDATA[<!-- [DocumentBodyStart:2e9262e8-b8a0-4b87-a4ed-927e11db3f16] --><div class="jive-rendered-content"><p>Welcome to the weekly roundup from the JBoss Community. Read on for an overview of the week's news and releases.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>First steps with Vert.x and Infinispan</h3><p>Katia Aresti has started a new blog series about creating Eclipse Vert.x applications with Infinispan. This week she published<a class="jive-link-external-small" href="http://planet.jboss.org/post/first_steps_with_vert_x_and_infinispan_rest_api_part_1" rel="nofollow"> part 1</a> and <a class="jive-link-external-small" href="http://planet.jboss.org/post/first_steps_with_vert_x_and_infinispan_push_api_part_2" rel="nofollow">part 2</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>JUDCon track videos from DevConf.cz 2017</h3><p>DevConf.cz 2017 hosted a JUDCon track covering a wide range of Red Hat JBoss related developer topics. We were able to video capture many of them. James Cobb provides links to these videos in his <a class="jive-link-external-small" href="http://planet.jboss.org/post/judcon_track_videos_from_devconf_cz_2017" rel="nofollow">blog post</a>.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>Exploring the jlink plug-in API in Java 9</h3><p>One of the most exciting features in Java 9 are modular runtime images. Using the new jlink utility, you can create customized distributions which contain your app, its dependencies and just the JDK modules which it needs. For instance, a simple service based on the Undertow web server can be packaged into an image of just 25 MB. Read <a class="jive-link-external-small" href="http://planet.jboss.org/post/exploring_the_jlink_plug_in_api_in_java_9" rel="nofollow">this post</a> by Gunnar Morling to find out more.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>Free Online Self-Paced Workshop Updated to OpenShift Container Platform 3.7</h3><p>In <a class="jive-link-external-small" href="http://planet.jboss.org/post/free_online_self_paced_workshop_updated_to_openshift_container_platform_3_7" rel="nofollow">this post</a> Eric Schabell introduces us to the <em>AppDev in the Cloud</em> workshop which has recently been updated to cover OpenShift Container Platform 3.7.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>10 Steps to Cloud Happiness: Step 8 - Curing Travel Woes</h3><p>In <a class="jive-link-external-small" href="http://planet.jboss.org/post/10_steps_to_cloud_happiness_step_8_curing_travel_woes" rel="nofollow">this post</a>, Eric Schabell continues his blog series on 10 Steps to Cloud Happiness. Step 8 focuses on a travel application example.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>Deep Dive Envoy and Istio Workshop</h3><p>Christian Posta has started to put together a workshop diving deeper into how Istio works. This includes an exploration of detailed parts of Envoy (the default Istio proxy), and the core components like Pilot and Mixer. Read <a class="jive-link-external-small" href="http://planet.jboss.org/post/deep_dive_envoy_and_istio_workshop" rel="nofollow">this post</a> for more details.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>Releases</h3><ul><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/announcing_wildfly_swarm_2017_12_1" rel="nofollow">WildFly Swarm 2017.12.1</a>. A significant release with upgrade to WildFly 11.0.0.Final &amp; Keycloak 3.4.0.Final. Also the Eclipse MicroProfile 1.2 implementation is included.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/arquillian_drone_extension_2_5_0_released" rel="nofollow">Arquillian Drone Extension 2.5.0</a>.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/arquillian_cube_extension_1_10_0_released" rel="nofollow">Arquillian Cube Extension 1.10.0</a>.</li></ul></div><!-- [DocumentBodyEnd:2e9262e8-b8a0-4b87-a4ed-927e11db3f16] -->]]></summary>
+	<content type="html">&lt;html&gt;&lt;!-- [DocumentBodyStart:2e9262e8-b8a0-4b87-a4ed-927e11db3f16] --&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;Welcome to the weekly roundup from the JBoss Community. Read on for an overview of the week's news and releases.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;First steps with Vert.x and Infinispan&lt;/h3&gt;&lt;p&gt;Katia Aresti has started a new blog series about creating Eclipse Vert.x applications with Infinispan. This week she published&lt;a href="http://planet.jboss.org/post/first_steps_with_vert_x_and_infinispan_rest_api_part_1" rel="nofollow" target="_blank"&gt; part 1&lt;/a&gt; and &lt;a href="http://planet.jboss.org/post/first_steps_with_vert_x_and_infinispan_push_api_part_2" rel="nofollow" target="_blank"&gt;part 2&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;JUDCon track videos from DevConf.cz 2017&lt;/h3&gt;&lt;p&gt;DevConf.cz 2017 hosted a JUDCon track covering a wide range of Red Hat JBoss related developer topics. We were able to video capture many of them. James Cobb provides links to these videos in his &lt;a href="http://planet.jboss.org/post/judcon_track_videos_from_devconf_cz_2017" rel="nofollow" target="_blank"&gt;blog post&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;Exploring the jlink plug-in API in Java 9&lt;/h3&gt;&lt;p&gt;One of the most exciting features in Java 9 are modular runtime images. Using the new jlink utility, you can create customized distributions which contain your app, its dependencies and just the JDK modules which it needs. For instance, a simple service based on the Undertow web server can be packaged into an image of just 25 MB. Read &lt;a href="http://planet.jboss.org/post/exploring_the_jlink_plug_in_api_in_java_9" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; by Gunnar Morling to find out more.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;Free Online Self-Paced Workshop Updated to OpenShift Container Platform 3.7&lt;/h3&gt;&lt;p&gt;In &lt;a href="http://planet.jboss.org/post/free_online_self_paced_workshop_updated_to_openshift_container_platform_3_7" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; Eric Schabell introduces us to the &lt;em&gt;AppDev in the Cloud&lt;/em&gt; workshop which has recently been updated to cover OpenShift Container Platform 3.7.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;10 Steps to Cloud Happiness: Step 8 - Curing Travel Woes&lt;/h3&gt;&lt;p&gt;In &lt;a href="http://planet.jboss.org/post/10_steps_to_cloud_happiness_step_8_curing_travel_woes" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt;, Eric Schabell continues his blog series on 10 Steps to Cloud Happiness. Step 8 focuses on a travel application example.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;Deep Dive Envoy and Istio Workshop&lt;/h3&gt;&lt;p&gt;Christian Posta has started to put together a workshop diving deeper into how Istio works. This includes an exploration of detailed parts of Envoy (the default Istio proxy), and the core components like Pilot and Mixer. Read &lt;a href="http://planet.jboss.org/post/deep_dive_envoy_and_istio_workshop" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; for more details.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;Releases&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/announcing_wildfly_swarm_2017_12_1" rel="nofollow" target="_blank"&gt;WildFly Swarm 2017.12.1&lt;/a&gt;. A significant release with upgrade to WildFly 11.0.0.Final &amp;amp; Keycloak 3.4.0.Final. Also the Eclipse MicroProfile 1.2 implementation is included.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/arquillian_drone_extension_2_5_0_released" rel="nofollow" target="_blank"&gt;Arquillian Drone Extension 2.5.0&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/arquillian_cube_extension_1_10_0_released" rel="nofollow" target="_blank"&gt;Arquillian Cube Extension 1.10.0&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;!-- [DocumentBodyEnd:2e9262e8-b8a0-4b87-a4ed-927e11db3f16] --&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/TV6cGiCx1Kc" height="1" width="1" alt=""/&gt;</content>
+	<updated>2017-12-15T11:41:05+00:00</updated>
+	<author><name>Paul Robinson</name></author>
+	<source>
+		<link rel="self" href="http://community.jboss.org/blogs/weekly-editorial/feeds/" />
+		<title>Weekly Editorial</title></source>
+
+	<category term="infinispan" />
+
+	<category term="arquillian" />
+
+	<category term="judcon" />
+
+	<category term="openshift" />
+
+	<category term="wildfly" />
+
+	<category term="vert.x" />
+
+	<category term="devconf" />
+
+	<category term="jlink" />
+
+	<category term="istio" />
+
+
+<feedburner:origLink>https://developer.jboss.org/blogs/weekly-editorial/2017/12/15/the-week-in-the-jboss-community-2017-12-15</feedburner:origLink></entry>
+
+<entry>
+	<id>https://tools.jboss.org/blog/4.5.2.am2-for-oxygen.2.html</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/erRgabpUyM0/4.5.2.am2-for-oxygen.2.html" rel="alternate" type="text/html" />
+	<title>JBoss Tools 4.5.2.AM2 for Eclipse Oxygen.2</title>
+	<summary type="html"><![CDATA[
+      <div><div id="preamble">
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>Happy to announce 4.5.2.AM2 (Developer Milestone 2) build for Eclipse Oxygen.2 (built with RC2).</p>
+      </div>
+      <div class="paragraph">
+      <p>Downloads available at <a href="https://tools.jboss.org/downloads/jbosstools/oxygen/4.5.2.AM2.html">JBoss Tools 4.5.2 AM2</a>.</p>
+      </div>
+      </div>
+      </div>
+      <div class="sect1">
+      <h2 id="what-is-new"><a class="anchor" href="#what-is-new"></a>What is New?</h2>
+      <div class="sectionbody">
+      <div class="paragraph">
+      <p>Full info is at <a href="https://tools.jboss.org/documentation/whatsnew/jbosstools/4.5.2.AM2.html">this page</a>. Some highlights are below.</p>
+      </div>
+      <div class="sect2">
+      <h3 id="fuse-tooling"><a class="anchor" href="#fuse-tooling"></a>Fuse Tooling</h3>
+      <div class="sect3">
+      <h4 id="fuse-7-karaf-based-runtime-server-adapter"><a class="anchor" href="#fuse-7-karaf-based-runtime-server-adapter"></a>Fuse 7 Karaf-based runtime Server adapter</h4>
+      <div class="paragraph">
+      <p>Fuse 7 is cooking and preliminary versions are already available on <a href="http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf">early-access repository</a>. Fuse Tooling is ready to leverage them so that you can try the upcoming major Fuse version.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/Fuse7-ServerAdapter.png" alt="Fuse 7 Server Adapter" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Classical functionalities with server adapters are available: automatic redeploy, Java debug, Graphical Camel debug through created JMX connection.
+      Please note:
+      - you can’t retrieve the Fuse 7 Runtime yet directly from Fuse tooling, it is required to download it on your machine and point to it when creating the Server adapter.
+      - the provided templates requires some modifications to have them working with Fuse 7, mainly adapting the bom. Please see work related to it in this <a href="https://issues.jboss.org/browse/FUSETOOLS-2578">JIRA task</a> and its children.</p>
+      </div>
+      </div>
+      <div class="sect3">
+      <h4 id="display-routes-defined-inside-routecontext-in-camel-graphical-editor-design-tab"><a class="anchor" href="#display-routes-defined-inside-routecontext-in-camel-graphical-editor-design-tab"></a>Display routes defined inside &quot;routeContext&quot; in Camel Graphical Editor (Design tab)</h4>
+      <div class="paragraph">
+      <p>&quot;routeContext&quot; tag is a special tag used in Camel to provide the ability to reuse routes and to split them across different files. This is very useful on large projects. See Camel <a href="http://camel.apache.org/how-do-i-import-routes-from-other-xml-files.html">documentation</a> for more information.
+      Since this version, the Design of the routes defined in &quot;routeContext&quot; tags are now displayed.</p>
+      </div>
+      </div>
+      <div class="sect3">
+      <h4 id="usability-improvement-progress-bar-when-changing-the-camel-version"><a class="anchor" href="#usability-improvement-progress-bar-when-changing-the-camel-version"></a>Usability improvement: Progress bar when &quot;Changing the Camel version&quot;</h4>
+      <div class="paragraph">
+      <p>Since Fuse Tooling 10.1.0, it is possible to change the Camel version. In case the Camel version was not cached locally yet and for slow internet connections, this operation can take a while. There is now a progress bar to see the progress.</p>
+      </div>
+      <div class="imageblock">
+      <div class="content">
+      <img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/switchCamelVersionWithProgressBar.png" alt="Switch Camel Version with Progress Bar" />
+      </div>
+      </div>
+      <div class="paragraph">
+      <p>Enjoy!</p>
+      </div>
+      <div class="paragraph">
+      <p>Jeff Maury</p>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div></div>
+    ]]></summary>
+	<content type="html">&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Happy to announce 4.5.2.AM2 (Developer Milestone 2) build for Eclipse Oxygen.2 (built with RC2).&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Downloads available at &lt;a href="https://tools.jboss.org/downloads/jbosstools/oxygen/4.5.2.AM2.html" target="_blank"&gt;JBoss Tools 4.5.2 AM2&lt;/a&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h2&gt;&lt;a href="#what-is-new" target="_blank"&gt;&lt;/a&gt;What is New?&lt;/h2&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Full info is at &lt;a href="https://tools.jboss.org/documentation/whatsnew/jbosstools/4.5.2.AM2.html" target="_blank"&gt;this page&lt;/a&gt;. Some highlights are below.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h3&gt;&lt;a href="#fuse-tooling" target="_blank"&gt;&lt;/a&gt;Fuse Tooling&lt;/h3&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#fuse-7-karaf-based-runtime-server-adapter" target="_blank"&gt;&lt;/a&gt;Fuse 7 Karaf-based runtime Server adapter&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;Fuse 7 is cooking and preliminary versions are already available on &lt;a href="http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf" target="_blank"&gt;early-access repository&lt;/a&gt;. Fuse Tooling is ready to leverage them so that you can try the upcoming major Fuse version.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/Fuse7-ServerAdapter.png" alt="Fuse 7 Server Adapter"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Classical functionalities with server adapters are available: automatic redeploy, Java debug, Graphical Camel debug through created JMX connection.
+      Please note:
+      - you can&amp;rsquo;t retrieve the Fuse 7 Runtime yet directly from Fuse tooling, it is required to download it on your machine and point to it when creating the Server adapter.
+      - the provided templates requires some modifications to have them working with Fuse 7, mainly adapting the bom. Please see work related to it in this &lt;a href="https://issues.jboss.org/browse/FUSETOOLS-2578" target="_blank"&gt;JIRA task&lt;/a&gt; and its children.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#display-routes-defined-inside-routecontext-in-camel-graphical-editor-design-tab" target="_blank"&gt;&lt;/a&gt;Display routes defined inside "routeContext" in Camel Graphical Editor (Design tab)&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;"routeContext" tag is a special tag used in Camel to provide the ability to reuse routes and to split them across different files. This is very useful on large projects. See Camel &lt;a href="http://camel.apache.org/how-do-i-import-routes-from-other-xml-files.html" target="_blank"&gt;documentation&lt;/a&gt; for more information.
+      Since this version, the Design of the routes defined in "routeContext" tags are now displayed.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;h4&gt;&lt;a href="#usability-improvement-progress-bar-when-changing-the-camel-version" target="_blank"&gt;&lt;/a&gt;Usability improvement: Progress bar when "Changing the Camel version"&lt;/h4&gt;
+      &lt;div&gt;
+      &lt;p&gt;Since Fuse Tooling 10.1.0, it is possible to change the Camel version. In case the Camel version was not cached locally yet and for slow internet connections, this operation can take a while. There is now a progress bar to see the progress.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;div&gt;
+      &lt;img src="https://tools.jboss.org/documentation/whatsnew/fusetools/images/switchCamelVersionWithProgressBar.png" alt="Switch Camel Version with Progress Bar"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Enjoy!&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+      &lt;p&gt;Jeff Maury&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/erRgabpUyM0" height="1" width="1" alt=""/&gt;</content>
+	<updated>2017-12-13T07:40:47+00:00</updated>
+	<author><name>jeffmaury</name></author>
+	<source>
+		<link rel="self" href="http://tools.jboss.org/blog/" />
+		<title>JBoss Tools</title></source>
+
+	<category term="release" />
+
+	<category term="jbosstools" />
+
+	<category term="jbosscentral" />
+
+
+<feedburner:origLink>https://tools.jboss.org/blog/4.5.2.am2-for-oxygen.2.html</feedburner:origLink></entry>
+
+<entry>
+	<id>https://developer.jboss.org/blogs/weekly-editorial/2017/12/08/this-week-in-jboss-7th-december-yet-an-other-week-in-the-jboss-community</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/F_UisNLpoyw/this-week-in-jboss-7th-december-yet-an-other-week-in-the-jboss-community" rel="alternate" type="text/html" />
+	<title>This week in JBoss (7th December) - Yet an other week in the JBoss community</title>
+	<summary type="html"><![CDATA[<!-- [DocumentBodyStart:a03028fc-6d58-4f5f-a72f-24994754e067] --><div class="jive-rendered-content"><p><em>Yet again an other week has passed in the JBoss Community, and as always, a lot content was released that will most likely interest you. Especially this week a lot of JBoss/Java related content were published on the Red Hat Developers Blog, so if you don't check this blog, you will be happy to see them mentioned here below...</em></p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Higher Level Point of View</h2><p>While we love our gritty, low-level, technical tidbits (and we have a techbytes section for that below), it is always nice to take a step back, and look at the big picture, now and then. In this context, I think you will find the article on <a class="jive-link-external-small" href="http://www.ofbizian.com/2017/12/hexagonal-architecture-for-apache-camel.html" rel="nofollow">Hexagonal Architecture as a Natural fit for Apache Camel</a>, quite interesting. I also like the <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2017/12/05/state-microservices-survey-2017-eight-trends-need-know/" rel="nofollow">The State of Microservices Survey 2017</a> that was released last week too.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Evangelist's Corner</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>As always, JBoss's evangelist are keeping our community update, releasing, every week, a lot of passionating content. Last week, Eric D.Schabell has thus provided us a nice <a class="jive-link-external-small" href="http://www.schabell.org/2017/12/cloud-happiness-how-to-install-new-openshift-v37-in-minutes.html" rel="nofollow">How to install new OpenShift Container Platform 3.7 in minutes </a>, along with an article on <a class="jive-link-external-small" href="http://www.schabell.org/2017/12/zero-to-cloud-ops-on-cdk-in-minutes.html" rel="nofollow">Zero to Cloud Ops on Container Development Kit (CDK) in Minutes</a>. So, if you literally have only 5 minutes this week, those are articles are for you <span aria-label="Happy" class="emoticon_happy emoticon-inline" style="height:16px;width:16px;"></span></p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Techbytes</h2><p>So after high level considerations and some tutorial, let's go deep into technical details with this short but pretty neat article on <a class="jive-link-external-small" href="http://in.relation.to/2017/12/06/06-calling-jdk-tools-programmatically-on-java-9/" rel="nofollow">Calling JDK Tools Programmatically on Java 9</a>. Then, if you want more, let's take a look at <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2017/11/30/securing-amq7-routers-ssl/" rel="nofollow">Securing AMQ7 Routers with SSL</a>. That should do it, don't it ? No ? Want more ?</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>No problem, let's look at <a class="jive-link-external-small" href="https://developers.redhat.com/blog/2017/12/06/keycloak-identity-brokering-openshift/" rel="nofollow">Keycloak Identity Brokering with OpenShift </a>! And, by the way, if you like OpenShift, you should be very interested by last announcement about <a class="jive-link-external-small" href="https://www.redhat.com/en/about/press-releases/red-hat-releases-red-hat-openshift-application-runtimes-empower-simple-flexible-cloud-native-development" rel="nofollow">Red Hat OpenShift Application Runtimes </a>(RHOAR)!</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h2>Events and community</h2><p>If you want a good excuse to good to Paris (or France), you will be happy to hear that <a class="jive-link-external-small" href="https://cfp.devoxx.fr/" rel="nofollow">Devoxx France 2018</a> just open its Call for Paper! So please, go submit your talks proposal before mid January!</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>If you are doing anything with Hibernate related project, also don't forget to check their <a class="jive-link-external-small" href="http://in.relation.to/2017/12/07/hibernate-community-newsletter-2017-23/" rel="nofollow">Hibernate Community Newsletter 23/2017</a> that was just released.</p><h2></h2><h2>Releases, releases, releases...</h2><p style="min-height: 8pt; padding: 0px;">&#160;</p><p>... and as always, our thriving community has seen its fair share of software releases in the last week - including maintenance release of two very important project (Teiid and Keycloak):</p><ul><li><a class="jive-link-external-small" href="http://arquillian.org/blog/2017/12/01/arquillian-container-se-1-0-2-Final/" rel="nofollow">Arquillian Container SE 1.0.2.Final Released</a></li><li><a class="jive-link-external-small" href="http://blog.keycloak.org/2017/11/keycloak-341cr1-released.html" rel="nofollow">Keycloak 3.4.1.CR1 released</a>and <a class="jive-link-external-small" href="http://blog.keycloak.org/2017/12/keycloak-341final-release.html" rel="nofollow">Keycloak: Keycloak 3.4.1.Final</a></li><li><a class="jive-link-external-small" href="http://teiid.blogspot.de/2017/12/teiid-10.html" rel="nofollow">Teiid 10.0.1 Released</a></li></ul><p style="min-height: 8pt; padding: 0px;">&#160;</p><p><em>Hopefully, you have found something in this week's editorial to pique your interest and give you something to explore while waiting for next week's installment. Join us here next week for more news from the JBoss Community.</em></p></div><!-- [DocumentBodyEnd:a03028fc-6d58-4f5f-a72f-24994754e067] -->]]></summary>
+	<content type="html">&lt;html&gt;&lt;!-- [DocumentBodyStart:a03028fc-6d58-4f5f-a72f-24994754e067] --&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;&lt;em&gt;Yet again an other week has passed in the JBoss Community, and as always, a lot content was released that will most likely interest you. Especially this week a lot of JBoss/Java related content were published on the Red Hat Developers Blog, so if you don't check this blog, you will be happy to see them mentioned here below...&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Higher Level Point of View&lt;/h2&gt;&lt;p&gt;While we love our gritty, low-level, technical tidbits (and we have a techbytes section for that below), it is always nice to take a step back, and look at the big picture, now and then. In this context, I think you will find the article on &lt;a href="http://www.ofbizian.com/2017/12/hexagonal-architecture-for-apache-camel.html" rel="nofollow" target="_blank"&gt;Hexagonal Architecture as a Natural fit for Apache Camel&lt;/a&gt;, quite interesting. I also like the &lt;a href="https://developers.redhat.com/blog/2017/12/05/state-microservices-survey-2017-eight-trends-need-know/" rel="nofollow" target="_blank"&gt;The State of Microservices Survey 2017&lt;/a&gt; that was released last week too.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Evangelist's Corner&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;As always, JBoss's evangelist are keeping our community update, releasing, every week, a lot of passionating content. Last week, Eric D.Schabell has thus provided us a nice &lt;a href="http://www.schabell.org/2017/12/cloud-happiness-how-to-install-new-openshift-v37-in-minutes.html" rel="nofollow" target="_blank"&gt;How to install new OpenShift Container Platform 3.7 in minutes &lt;/a&gt;, along with an article on &lt;a href="http://www.schabell.org/2017/12/zero-to-cloud-ops-on-cdk-in-minutes.html" rel="nofollow" target="_blank"&gt;Zero to Cloud Ops on Container Development Kit (CDK) in Minutes&lt;/a&gt;. So, if you literally have only 5 minutes this week, those are articles are for you &lt;span aria-label="Happy"&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Techbytes&lt;/h2&gt;&lt;p&gt;So after high level considerations and some tutorial, let's go deep into technical details with this short but pretty neat article on &lt;a href="http://in.relation.to/2017/12/06/06-calling-jdk-tools-programmatically-on-java-9/" rel="nofollow" target="_blank"&gt;Calling JDK Tools Programmatically on Java 9&lt;/a&gt;. Then, if you want more, let's take a look at &lt;a href="https://developers.redhat.com/blog/2017/11/30/securing-amq7-routers-ssl/" rel="nofollow" target="_blank"&gt;Securing AMQ7 Routers with SSL&lt;/a&gt;. That should do it, don't it ? No ? Want more ?&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;No problem, let's look at &lt;a href="https://developers.redhat.com/blog/2017/12/06/keycloak-identity-brokering-openshift/" rel="nofollow" target="_blank"&gt;Keycloak Identity Brokering with OpenShift &lt;/a&gt;! And, by the way, if you like OpenShift, you should be very interested by last announcement about &lt;a href="https://www.redhat.com/en/about/press-releases/red-hat-releases-red-hat-openshift-application-runtimes-empower-simple-flexible-cloud-native-development" rel="nofollow" target="_blank"&gt;Red Hat OpenShift Application Runtimes &lt;/a&gt;(RHOAR)!&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h2&gt;Events and community&lt;/h2&gt;&lt;p&gt;If you want a good excuse to good to Paris (or France), you will be happy to hear that &lt;a href="https://cfp.devoxx.fr/" rel="nofollow" target="_blank"&gt;Devoxx France 2018&lt;/a&gt; just open its Call for Paper! So please, go submit your talks proposal before mid January!&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;If you are doing anything with Hibernate related project, also don't forget to check their &lt;a href="http://in.relation.to/2017/12/07/hibernate-community-newsletter-2017-23/" rel="nofollow" target="_blank"&gt;Hibernate Community Newsletter 23/2017&lt;/a&gt; that was just released.&lt;/p&gt;&lt;h2&gt;&lt;/h2&gt;&lt;h2&gt;Releases, releases, releases...&lt;/h2&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;... and as always, our thriving community has seen its fair share of software releases in the last week - including maintenance release of two very important project (Teiid and Keycloak):&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://arquillian.org/blog/2017/12/01/arquillian-container-se-1-0-2-Final/" rel="nofollow" target="_blank"&gt;Arquillian Container SE 1.0.2.Final Released&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="http://blog.keycloak.org/2017/11/keycloak-341cr1-released.html" rel="nofollow" target="_blank"&gt;Keycloak 3.4.1.CR1 released&lt;/a&gt;and &lt;a href="http://blog.keycloak.org/2017/12/keycloak-341final-release.html" rel="nofollow" target="_blank"&gt;Keycloak: Keycloak 3.4.1.Final&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="http://teiid.blogspot.de/2017/12/teiid-10.html" rel="nofollow" target="_blank"&gt;Teiid 10.0.1 Released&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;em&gt;Hopefully, you have found something in this week's editorial to pique your interest and give you something to explore while waiting for next week's installment. Join us here next week for more news from the JBoss Community.&lt;/em&gt;&lt;/p&gt;&lt;/div&gt;&lt;!-- [DocumentBodyEnd:a03028fc-6d58-4f5f-a72f-24994754e067] --&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/F_UisNLpoyw" height="1" width="1" alt=""/&gt;</content>
+	<updated>2017-12-08T15:12:11+00:00</updated>
+	<author><name>Romain Pelisse</name></author>
+	<source>
+		<link rel="self" href="http://community.jboss.org/blogs/weekly-editorial/feeds/" />
+		<title>Weekly Editorial</title></source>
+
+	<category term="camel" />
+
+	<category term="jdk" />
+
+	<category term="openshift" />
+
+	<category term="keycloak" />
+
+	<category term="devoxxfr" />
+
+	<category term="java9" />
+
+	<category term="arquillian-container" />
+
+
+<feedburner:origLink>https://developer.jboss.org/blogs/weekly-editorial/2017/12/08/this-week-in-jboss-7th-december-yet-an-other-week-in-the-jboss-community</feedburner:origLink></entry>
+
+<entry>
+	<id>https://developer.jboss.org/blogs/weekly-editorial/2017/11/30/this-week-in-jboss-30th-november</id>
+	<link href="http://feedproxy.google.com/~r/jbossbuzz/~3/ZG27VxpcAuY/this-week-in-jboss-30th-november" rel="alternate" type="text/html" />
+	<title>This week in JBoss (30th November)</title>
+	<summary type="html"><![CDATA[<!-- [DocumentBodyStart:f7774175-1277-4938-9f4e-c3908314d8e2] --><div class="jive-rendered-content"><p>As many are coming back to work after the Thanksgiving holiday, we are seeing a flurry of bog posts and a significant number of Arquillian releases. Read on to find out more...</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>Back from Madrid JUG and Codemotion Madrid!!</h3><p>Galder Zamarre&#241;o &amp; Thomas Segismont attended the Codemotion Madrid conference. In <a class="jive-link-external-small" href="http://planet.jboss.org/post/back_from_madrid_jug_and_codemotion_madrid" rel="nofollow">this post</a> Galder talks about the conference and in particular their talks. These talks covered <em>data analytics using Infinispan-based data grids</em> and <em>streaming data with Infinispan, Vert.x and OpenShift.</em></p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>AppDev in the Cloud with Financial Customer Evaluation Solution</h3><p>In <a class="jive-link-external-small" href="http://planet.jboss.org/post/appdev_in_the_cloud_with_financial_customer_evaluation_solution" rel="nofollow">this post</a> Eric Schabell shows us how to get started with the <em>Customer Evaluation Demo</em> using the JBoss BPM Suite on OpenShift Container Platform.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>Introducing the Hibernate Search JSR 352 mass indexing job</h3><p>Originally started as a Google Summer of Code project by Mincong Huang, Hibernate Search 5.9 will feature integration with JSR 352, "Batch Applications for the Java Platform". This integration provides a new implementation of mass indexing (indexing a high volume of entities) as a JSR 352 job. Read <a class="jive-link-external-small" href="http://planet.jboss.org/post/introducing_the_hibernate_search_jsr_352_mass_indexing_job" rel="nofollow">this post</a> to learn more.</p><p style="min-height: 8pt; padding: 0px;">&#160;</p><h3>Releases</h3><ul><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/arquillian_container_chameleon_1_0_0_beta3_released" rel="nofollow">Arquillian Container Chameleon 1.0.0.Beta3</a>. With support for WildFly 11.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/arquillian_container_glassfish_1_0_2_released" rel="nofollow">Arquillian Container GlassFish 1.0.2</a>. With support for Glassfish 5.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/smart_testing_0_0_5_released" rel="nofollow">Arquillian Smart Testing 0.0.5</a>. This release ships with several API improvements making integration with 3rd party tools much easier.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/arquillian_universe_1_1_15_0_released" rel="nofollow">Arquillian Universe 1.1.15.0</a>. The Arquillian Universe BOM is a 'Bill of Material' Maven POM file collection that make up a module stack that stretch across the whole Arquillian Universe.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/arquillian_core_1_1_15_final_released" rel="nofollow">Arquillian Core 1.1.15.Final</a>. Includes support for newer versions of TestNG.</li><li><a class="jive-link-external-small" href="http://planet.jboss.org/post/hibernate_search_5_9_0_beta1_was_just_released" rel="nofollow">Hibernate Search 5.9.0.Beta1</a>. Includes an implementation of a new mass indexer, based on the <a class="jive-link-external-small" href="https://www.jcp.org/en/jsr/detail?id=352" rel="nofollow">JSR 352</a> specification, "Batch Applications for the Java Platform".</li></ul></div><!-- [DocumentBodyEnd:f7774175-1277-4938-9f4e-c3908314d8e2] -->]]></summary>
+	<content type="html">&lt;html&gt;&lt;!-- [DocumentBodyStart:f7774175-1277-4938-9f4e-c3908314d8e2] --&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;As many are coming back to work after the Thanksgiving holiday, we are seeing a flurry of bog posts and a significant number of Arquillian releases. Read on to find out more...&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;Back from Madrid JUG and Codemotion Madrid!!&lt;/h3&gt;&lt;p&gt;Galder Zamarre&amp;ntilde;o &amp;amp; Thomas Segismont attended the Codemotion Madrid conference. In &lt;a href="http://planet.jboss.org/post/back_from_madrid_jug_and_codemotion_madrid" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; Galder talks about the conference and in particular their talks. These talks covered &lt;em&gt;data analytics using Infinispan-based data grids&lt;/em&gt; and &lt;em&gt;streaming data with Infinispan, Vert.x and OpenShift.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;AppDev in the Cloud with Financial Customer Evaluation Solution&lt;/h3&gt;&lt;p&gt;In &lt;a href="http://planet.jboss.org/post/appdev_in_the_cloud_with_financial_customer_evaluation_solution" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; Eric Schabell shows us how to get started with the &lt;em&gt;Customer Evaluation Demo&lt;/em&gt; using the JBoss BPM Suite on OpenShift Container Platform.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;Introducing the Hibernate Search JSR 352 mass indexing job&lt;/h3&gt;&lt;p&gt;Originally started as a Google Summer of Code project by Mincong Huang, Hibernate Search 5.9 will feature integration with JSR 352, "Batch Applications for the Java Platform". This integration provides a new implementation of mass indexing (indexing a high volume of entities) as a JSR 352 job. Read &lt;a href="http://planet.jboss.org/post/introducing_the_hibernate_search_jsr_352_mass_indexing_job" rel="nofollow" target="_blank"&gt;this post&lt;/a&gt; to learn more.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;h3&gt;Releases&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/arquillian_container_chameleon_1_0_0_beta3_released" rel="nofollow" target="_blank"&gt;Arquillian Container Chameleon 1.0.0.Beta3&lt;/a&gt;. With support for WildFly 11.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/arquillian_container_glassfish_1_0_2_released" rel="nofollow" target="_blank"&gt;Arquillian Container GlassFish 1.0.2&lt;/a&gt;. With support for Glassfish 5.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/smart_testing_0_0_5_released" rel="nofollow" target="_blank"&gt;Arquillian Smart Testing 0.0.5&lt;/a&gt;. This release ships with several API improvements making integration with 3rd party tools much easier.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/arquillian_universe_1_1_15_0_released" rel="nofollow" target="_blank"&gt;Arquillian Universe 1.1.15.0&lt;/a&gt;. The Arquillian Universe BOM is a 'Bill of Material' Maven POM file collection that make up a module stack that stretch across the whole Arquillian Universe.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/arquillian_core_1_1_15_final_released" rel="nofollow" target="_blank"&gt;Arquillian Core 1.1.15.Final&lt;/a&gt;. Includes support for newer versions of TestNG.&lt;/li&gt;&lt;li&gt;&lt;a href="http://planet.jboss.org/post/hibernate_search_5_9_0_beta1_was_just_released" rel="nofollow" target="_blank"&gt;Hibernate Search 5.9.0.Beta1&lt;/a&gt;. Includes an implementation of a new mass indexer, based on the &lt;a href="https://www.jcp.org/en/jsr/detail?id=352" rel="nofollow" target="_blank"&gt;JSR 352&lt;/a&gt; specification, "Batch Applications for the Java Platform".&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;!-- [DocumentBodyEnd:f7774175-1277-4938-9f4e-c3908314d8e2] --&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;img src="http://feeds.feedburner.com/~r/jbossbuzz/~4/ZG27VxpcAuY" height="1" width="1" alt=""/&gt;</content>
+	<updated>2017-11-30T15:30:46+00:00</updated>
+	<author><name>Paul Robinson</name></author>
+	<source>
+		<link rel="self" href="http://community.jboss.org/blogs/weekly-editorial/feeds/" />
+		<title>Weekly Editorial</title></source>
+
+
+<feedburner:origLink>https://developer.jboss.org/blogs/weekly-editorial/2017/11/30/this-week-in-jboss-30th-november</feedburner:origLink></entry>
+
+
+</feed><!-- vim:ft=xml
+	  -->

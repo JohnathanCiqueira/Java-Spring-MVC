@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<addon>
+  <dependencies>
+    <dependency export="true" name="org.jboss.forge.addon:ui" optional="false" version="3.8.1.Final"/>
+    <dependency export="false" name="org.jboss.forge.furnace.container:simple" optional="false" version="2.27.0.Final"/>
+    <dependency export="true" name="org.jboss.forge.addon:slf4j" optional="false" version="1.7.13"/>
+    <dependency export="true" name="org.jboss.forge.addon:projects" optional="false" version="3.8.1.Final"/>
+    <dependency export="true" name="org.jboss.forge.addon:configuration" optional="false" version="3.8.1.Final"/>
+    <dependency export="true" name="org.jboss.forge.addon:javaee" optional="false" version="3.8.1.Final"/>
+    <dependency export="true" name="org.jboss.forge.addon:parser-xml" optional="false" version="3.8.1.Final"/>
+  </dependencies>
+</addon>

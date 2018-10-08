@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<addon>
+  <dependencies>
+    <dependency export="false" name="org.jboss.forge.addon:ui" optional="false" version="3.8.1.Final"/>
+    <dependency export="false" name="org.jboss.forge.furnace.container:cdi" optional="false" version="2.27.0.Final"/>
+    <dependency export="true" name="org.jboss.forge.addon:javaee-spi" optional="false" version="3.8.1.Final"/>
+  </dependencies>
+</addon>
